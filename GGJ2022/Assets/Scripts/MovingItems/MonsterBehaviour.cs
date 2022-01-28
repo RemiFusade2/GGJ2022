@@ -14,15 +14,14 @@ public class MonsterBehaviour : MonoBehaviour
 {
     private Rigidbody2D monsterRigidbody;
 
-    public float speed;
+    public MoveData moveData;
 
-    public Vector2 direction;
+    public DIRECTION currentDirection;
 
     // Start is called before the first frame update
     void Start()
     {
         monsterRigidbody = GetComponent<Rigidbody2D>();
-        StartCoroutine(WaitAndChangeDirection(1.0f));
     }
 
     // Update is called once per frame
@@ -31,18 +30,42 @@ public class MonsterBehaviour : MonoBehaviour
         
     }
 
+    public Vector2 GetDirection()
+    {
+        Vector2 direction = Vector2.zero;
+        switch (currentDirection)
+        {
+            case DIRECTION.UP:
+                direction = Vector2.up;
+                break;
+            case DIRECTION.DOWN:
+                direction = -Vector2.up;
+                break;
+            case DIRECTION.RIGHT:
+                direction = Vector2.right;
+                break;
+            case DIRECTION.LEFT:
+                direction = -Vector2.right;
+                break;
+        }
+        return direction;
+    }
+
     private void FixedUpdate()
     {
         if (GameManager.instance.gameStarted)
         {
-            monsterRigidbody.velocity = direction * speed;
+            if (moveData != null)
+            {
+                monsterRigidbody.velocity = GetDirection() * moveData.moveSpeed;
+            }
         }
         else
         {
             monsterRigidbody.velocity = Vector2.zero;
         }
     }
-    
+
     /*
     private List<DIRECTION> GetPossibleDirections()
     {
@@ -54,27 +77,26 @@ public class MonsterBehaviour : MonoBehaviour
         }
     }*/
 
-    private IEnumerator WaitAndChangeDirection(float delay)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        yield return new WaitForSeconds(delay);
-
-        int randomValue = Random.Range(0, 4);
-        if (randomValue == 0)
+        Debug.Log("Collision");
+        if (moveData != null && moveData.movementPattern == MOVEMENT_PATTERN.BACK_AND_FORTH)
         {
-            direction = Vector2.right;
+            switch(currentDirection)
+            {
+                case DIRECTION.UP:
+                    currentDirection = DIRECTION.DOWN;
+                    break;
+                case DIRECTION.DOWN:
+                    currentDirection = DIRECTION.UP;
+                    break;
+                case DIRECTION.RIGHT:
+                    currentDirection = DIRECTION.LEFT;
+                    break;
+                case DIRECTION.LEFT:
+                    currentDirection = DIRECTION.RIGHT;
+                    break;
+            }
         }
-        else if (randomValue == 1)
-        {
-            direction = -Vector2.right;
-        }
-        else if(randomValue == 2)
-        {
-            direction = Vector2.up;
-        }
-        else
-        {
-            direction = -Vector2.up;
-        }
-        StartCoroutine(WaitAndChangeDirection(1.0f));
     }
 }

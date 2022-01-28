@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
         if (GameManager.instance.gameStarted)
         {
-            Vector2 moveInput = ((HorizontalInput * Vector2.right).normalized + (VerticalInput * Vector2.up).normalized) * playerData.moveSpeed * Time.fixedDeltaTime;
+            Vector2 moveInput = ((HorizontalInput * Vector2.right).normalized + (VerticalInput * Vector2.up).normalized) * playerData.moveSpeed;
             playerRigidbody.velocity = moveInput;
         }
     }
