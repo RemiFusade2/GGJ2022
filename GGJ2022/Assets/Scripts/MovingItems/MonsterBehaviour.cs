@@ -33,8 +33,16 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        monsterRigidbody.velocity = direction * speed;
+        if (GameManager.instance.gameStarted)
+        {
+            monsterRigidbody.velocity = direction * speed;
+        }
+        else
+        {
+            monsterRigidbody.velocity = Vector2.zero;
+        }
     }
+    
     /*
     private List<DIRECTION> GetPossibleDirections()
     {

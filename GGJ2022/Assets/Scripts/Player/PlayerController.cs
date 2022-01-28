@@ -73,4 +73,25 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Collectible"))
+        {
+            GameManager.instance.IncreaseScore(100);
+            Destroy(collision.gameObject);
+        }
+        else if (collision.CompareTag("Exit"))
+        {
+            GameManager.instance.ReloadGame();
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Monster"))
+        {
+            GameManager.instance.ReloadGame();
+        }
+    }
 }

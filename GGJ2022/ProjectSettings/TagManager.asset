@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Collectible
   - Monster
+  - Exit
   layers:
   - Default
   - TransparentFX
