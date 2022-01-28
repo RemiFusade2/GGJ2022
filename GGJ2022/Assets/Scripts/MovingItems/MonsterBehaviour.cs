@@ -16,7 +16,14 @@ public class MonsterBehaviour : MonoBehaviour
 
     public MoveData moveData;
 
-    public DIRECTION currentDirection;
+    public DIRECTION GetCurrentDirection()
+    {
+        return GetComponent<DayNightCycle>().facingDirection;
+    }
+    public void SetCurrentDirection(DIRECTION newDirection)
+    {
+        GetComponent<DayNightCycle>().facingDirection = newDirection;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +40,7 @@ public class MonsterBehaviour : MonoBehaviour
     public Vector2 GetDirection()
     {
         Vector2 direction = Vector2.zero;
-        switch (currentDirection)
+        switch (GetCurrentDirection())
         {
             case DIRECTION.UP:
                 direction = Vector2.up;
@@ -79,22 +86,21 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision");
         if (moveData != null && moveData.movementPattern == MOVEMENT_PATTERN.BACK_AND_FORTH)
         {
-            switch(currentDirection)
+            switch(GetCurrentDirection())
             {
                 case DIRECTION.UP:
-                    currentDirection = DIRECTION.DOWN;
+                    SetCurrentDirection(DIRECTION.DOWN);
                     break;
                 case DIRECTION.DOWN:
-                    currentDirection = DIRECTION.UP;
+                    SetCurrentDirection(DIRECTION.UP);
                     break;
                 case DIRECTION.RIGHT:
-                    currentDirection = DIRECTION.LEFT;
+                    SetCurrentDirection(DIRECTION.LEFT);
                     break;
                 case DIRECTION.LEFT:
-                    currentDirection = DIRECTION.RIGHT;
+                    SetCurrentDirection(DIRECTION.RIGHT);
                     break;
             }
         }

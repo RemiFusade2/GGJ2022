@@ -147,6 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cycleMode: 1
+  currentCycle: 0
+  facingDirection: 3
   dualPrefab: {fileID: 8297916002524559996, guid: 639182f5de12d29418df12bec6c17ea4, type: 3}
   dayGameObject: {fileID: 0}
   nightGameObject: {fileID: 0}

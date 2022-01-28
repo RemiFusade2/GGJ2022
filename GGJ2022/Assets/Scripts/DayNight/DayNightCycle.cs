@@ -15,6 +15,10 @@ public class DayNightCycle : MonoBehaviour
     [Header("Settings - mode")]
     public CYCLEMODE cycleMode;
 
+    [Header("Settings - starting state")]
+    public CYCLETYPE currentCycle;
+    public DIRECTION facingDirection;
+
     [Header("Settings - INSTANTIATE_PREFAB mode")]
     public GameObject dualPrefab;
 
@@ -22,7 +26,6 @@ public class DayNightCycle : MonoBehaviour
     public GameObject dayGameObject;
     public GameObject nightGameObject;
 
-    public CYCLETYPE currentCycle;
 
     // Start is called before the first frame update
     void Start()
@@ -97,5 +100,6 @@ public class DayNightCycle : MonoBehaviour
         yield return new WaitForSeconds(delay);
         GameObject spawnedObject = Instantiate(prefab, this.transform.position, prefab.transform.rotation, this.transform.parent);
         spawnedObject.GetComponent<DayNightCycle>().currentCycle = currentCycle;
+        spawnedObject.GetComponent<DayNightCycle>().facingDirection = facingDirection;
     }
 }

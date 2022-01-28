@@ -170,7 +170,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.35
+  m_Radius: 0.4
 --- !u!114 &1020241996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +184,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cycleMode: 1
+  currentCycle: 0
+  facingDirection: 2
   dualPrefab: {fileID: 840359513383327701, guid: e490107a732e9cb4bb07e94df7bcd8d1, type: 3}
   dayGameObject: {fileID: 0}
   nightGameObject: {fileID: 0}
-  currentCycle: 0
