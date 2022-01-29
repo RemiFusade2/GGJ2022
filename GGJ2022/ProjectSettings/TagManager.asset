@@ -8,6 +8,7 @@ TagManager:
   - Monster
   - Exit
   - TileMap
+  - Spawn Position
   layers:
   - Default
   - TransparentFX

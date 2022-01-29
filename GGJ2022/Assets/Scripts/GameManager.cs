@@ -18,25 +18,25 @@ public class GameManager : MonoBehaviour
     public float dayDuration;
     public float nightDuration;
 
-
     // Runtime
+    [Header("Runtime")]
+    public int score;
+    public int lives;
+    public bool gameIsRunning;
+
     private CYCLETYPE currentCycleType;
     private float cycleCurrentTimer;
 
-    public int score { get; private set; }
-    public int lives { get; private set; }
-    public bool gameStarted { get; private set; }
 
     private void Awake()
     {
         instance = this;
+        gameIsRunning = false;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        gameStarted = false;
-
         DayNightCycle[] items = FindObjectsOfType<DayNightCycle>();
         foreach (DayNightCycle item in items)
         {
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameStarted)
+        if (gameIsRunning)
         {
             cycleCurrentTimer -= Time.fixedDeltaTime;
 
@@ -67,63 +67,60 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ResetGame()
+    {
+        score = 0;
+        lives = 3;
+        UIManager.instance.UpdateScoreValueText(score);
+        UIManager.instance.UpdateLivesValueText(lives);
+    }
+
     public void IncreaseScore(int scoreAdd)
     {
         score += scoreAdd;
         UIManager.instance.UpdateScoreValueText(score);
     }
-
-    public void ReloadGame()
+    
+    public void ShowLevelStartScreen()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void FinishLevel()
-    {
-        StopGame();
-    }
-
-    public void LoseLife()
-    {
-        lives--;
-        UIManager.instance.UpdateLivesValueText(lives);
-
-        if (lives < 0)
-        {
-            GameOver();
-        }
-        else
-        {
-            StopGame();
-        }
+        gameIsRunning = false;
+        SwitchToDayTime();
+        UIManager.instance.ShowStartLevelPanel(LevelManager.instance.currentLevelIndex);
+        UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
     }
 
     public void StartGame()
     {
-        score = 0;
-        lives = 3;
-
-        UIManager.instance.UpdateScoreValueText(score);
-        UIManager.instance.UpdateLivesValueText(lives);
-
-        gameStarted = true;
-
+        UIManager.instance.HideAllPanels();
+        UIManager.instance.ShowTopInfoPanel();
         SwitchToDayTime();
-
-        UIManager.instance.ShowStartGamePanel(false);
+        UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
+        gameIsRunning = true;
     }
-
-    public void StopGame()
+    
+    public void FinishLevel()
     {
-        gameStarted = false;
-        UIManager.instance.ShowStartGamePanel(true);
+        LevelManager.instance.LoadNextLevel();
+        UIManager.instance.ShowStartLevelPanel(LevelManager.instance.currentLevelIndex);
     }
 
-    public void GameOver()
+    public void LoseLife()
     {
-        gameStarted = false;
-        UIManager.instance.ShowStartGamePanel(true);
+        Debug.Log("lose life. Lives remaining: " + lives);
+        lives--;
+        if (lives <= 0)
+        {
+            gameIsRunning = false;
+            MainLogicManager.instance.GameOver();
+        }
+        else
+        {
+            UIManager.instance.UpdateLivesValueText(lives);
+            LevelManager.instance.ReloadLevel();
+            ShowLevelStartScreen();
+        }
     }
+
 
     private void SwitchToNightTime()
     {

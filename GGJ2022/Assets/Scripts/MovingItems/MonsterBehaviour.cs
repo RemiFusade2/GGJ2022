@@ -60,7 +60,7 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.instance.gameStarted)
+        if (GameManager.instance.gameIsRunning)
         {
             if (moveData != null)
             {

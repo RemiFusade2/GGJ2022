@@ -14,13 +14,11 @@ public class PlayerController : MonoBehaviour
     [Header("Settings - controls")]
     public string horizontalInputName;
     public string verticalInputName;
-    public string startInputName;
 
     private Player rewiredPlayer;
 
     public float HorizontalInput { get; private set; }
     public float VerticalInput { get; private set; }
-    public bool StartInput { get; private set; }
 
     private Rigidbody2D playerRigidbody;
 
@@ -39,16 +37,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        UpdateStartInput();
         UpdateHorizontalInput();
         UpdateVerticalInput();
 
-        if (StartInput && !GameManager.instance.gameStarted)
-        {
-            GameManager.instance.StartGame();
-        }
-
-        if (GameManager.instance.gameStarted)
+        if (GameManager.instance.gameIsRunning)
         {
             Vector2 moveInput = ((HorizontalInput * Vector2.right).normalized + (VerticalInput * Vector2.up).normalized) * playerData.moveSpeed;
             playerRigidbody.velocity = moveInput;
@@ -67,11 +59,6 @@ public class PlayerController : MonoBehaviour
         VerticalInput = rewiredPlayer.GetAxis(verticalInputName);
     }
 
-    private void UpdateStartInput()
-    {
-        StartInput = rewiredPlayer.GetButtonDown(startInputName);
-    }
-
     #endregion
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -83,7 +70,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.CompareTag("Exit"))
         {
-            GameManager.instance.ReloadGame();
+            GameManager.instance.FinishLevel();
         }
     }
 
@@ -91,7 +78,18 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Monster"))
         {
-            GameManager.instance.ReloadGame();
+            GameManager.instance.LoseLife();
         }
+    }
+
+
+    public void Teleport(Vector2 newPosition)
+    {
+        playerRigidbody.isKinematic = true;
+        playerRigidbody.GetComponent<Collider2D>().enabled = false;
+        playerRigidbody.transform.localPosition = newPosition;
+
+        playerRigidbody.GetComponent<Collider2D>().enabled = true;
+        playerRigidbody.isKinematic = false;
     }
 }
