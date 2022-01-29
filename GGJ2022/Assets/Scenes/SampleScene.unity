@@ -2694,14 +2694,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1833524390}
-    - target: {fileID: 7269644911531320276, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
-      propertyPath: allLevelPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 2293629850242004190, guid: 8076c19c573215e438a3279c996de631, type: 3}
-    - target: {fileID: 7269644911531320276, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
-      propertyPath: allLevelPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 2293629850242004190, guid: 791d4ecc1a7cf02408f580f49917a883, type: 3}
     - target: {fileID: 7269644911531320277, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
       propertyPath: m_RootOrder
       value: 8
