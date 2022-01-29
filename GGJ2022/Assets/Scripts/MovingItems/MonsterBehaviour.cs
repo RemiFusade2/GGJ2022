@@ -132,6 +132,9 @@ public class MonsterBehaviour : MonoBehaviour
         {
             pathIsFree = false;
         }
+
+        Debug.DrawRay(this.transform.position, new Vector3(dir.x, dir.y, 0), Color.red, 1.0f);
+
         return pathIsFree;
     }
 
