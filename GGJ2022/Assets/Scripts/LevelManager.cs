@@ -62,7 +62,7 @@ public class LevelManager : MonoBehaviour
         bool nextLevelLoaded = false;
         if (IsLastLevel())
         {
-            MainLogicManager.instance.DisplayLeaderboard();
+            //MainLogicManager.instance.GameOver();
         }
         else 
         {
