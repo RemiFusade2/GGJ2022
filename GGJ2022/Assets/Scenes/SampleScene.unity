@@ -1456,6 +1456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayDuration: 5
   nightDuration: 5
+  score50Prefab: {fileID: 6591550035465372920, guid: e24afbc157efe314bbf4cdcaef14bb7a, type: 3}
   score: 0
   keys: 0
   lives: 0
@@ -2214,7 +2215,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1859384169}
-  - component: {fileID: 1859384168}
   - component: {fileID: 1859384167}
   m_Layer: 0
   m_Name: UI Manager
@@ -2245,24 +2245,6 @@ MonoBehaviour:
   keysValueText: {fileID: 1024048211}
   livesValueText: {fileID: 1762093720}
   dayNightCycleSlider: {fileID: 40335357}
---- !u!114 &1859384168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859384166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bf2d38970897764eb6eb29a3c6189a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dayDuration: 5
-  nightDuration: 5
-  score: 0
-  keys: 0
-  lives: 0
-  gameIsRunning: 0
 --- !u!4 &1859384169
 Transform:
   m_ObjectHideFlags: 0

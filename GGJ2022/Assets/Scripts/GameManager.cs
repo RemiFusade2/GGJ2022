@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     public float dayDuration;
     public float nightDuration;
 
+    [Header("Prefabs")]
+    public GameObject score50Prefab;
+
     // Runtime
     [Header("Runtime")]
     public int score;
@@ -80,10 +83,13 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateLivesValueText(lives);
     }
 
-    public void IncreaseScore(int scoreAdd)
+    public void IncreaseScore(int scoreAdd, Vector3 itemPosition)
     {
         score += scoreAdd;
         UIManager.instance.UpdateScoreValueText(score);
+        GameObject scoreObj = Instantiate(score50Prefab, itemPosition, score50Prefab.transform.rotation);
+
+
     }
     
     public void ShowLevelStartScreen()

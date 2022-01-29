@@ -19,8 +19,12 @@ public class InstantiateManager : MonoBehaviour
     private IEnumerator SpawnPrefabfAfterDelay(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent, float delay, CYCLETYPE cycle, DIRECTION facingDirection)
     {
         yield return new WaitForSeconds(delay);
-        GameObject spawnedObject = Instantiate(prefab, position, rotation, parent);
-        spawnedObject.GetComponent<DayNightCycle>().currentCycle = cycle;
-        spawnedObject.GetComponent<DayNightCycle>().SetFacingDirection(facingDirection);
+
+        if (parent != null)
+        {
+            GameObject spawnedObject = Instantiate(prefab, position, rotation, parent);
+            spawnedObject.GetComponent<DayNightCycle>().currentCycle = cycle;
+            spawnedObject.GetComponent<DayNightCycle>().SetFacingDirection(facingDirection);
+        }
     }
 }
