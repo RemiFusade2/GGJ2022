@@ -18,6 +18,13 @@ public class GameManager : MonoBehaviour
     [Header("Settings")]
     public float dayDuration;
     public float nightDuration;
+    [Space]
+    public string scrollingStaticBoolName;
+    public string imageDistorsionBoolName;
+    public string timeOffsetFloatName;
+
+    [Header("References")]
+    public Material screenMaterial;
 
     [Header("Prefabs")]
     public GameObject score50Prefab;
@@ -162,6 +169,8 @@ public class GameManager : MonoBehaviour
         currentCycleType = CYCLETYPE.NIGHT;
         cycleCurrentTimer = nightDuration;
 
+        TriggerGlitchEffect();
+
         DayNightCycle[] items = FindObjectsOfType<DayNightCycle>();
         foreach (DayNightCycle item in items)
         {
@@ -174,10 +183,29 @@ public class GameManager : MonoBehaviour
         currentCycleType = CYCLETYPE.DAY;
         cycleCurrentTimer = dayDuration;
 
+        TriggerGlitchEffect();
+
         DayNightCycle[] items = FindObjectsOfType<DayNightCycle>();
         foreach (DayNightCycle item in items)
         {
             item.SwitchToDay();
         }
+    }
+
+
+    public void TriggerGlitchEffect()
+    {
+        screenMaterial.SetInt(scrollingStaticBoolName, 1);
+        screenMaterial.SetInt(imageDistorsionBoolName, 1);
+        screenMaterial.SetFloat(timeOffsetFloatName, Time.time);
+        StartCoroutine(WaitAndStopGlitchEffect(1.0f));
+}
+
+    private IEnumerator WaitAndStopGlitchEffect(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        screenMaterial.SetInt(scrollingStaticBoolName, 0);
+        screenMaterial.SetInt(imageDistorsionBoolName, 0);
+
     }
 }
