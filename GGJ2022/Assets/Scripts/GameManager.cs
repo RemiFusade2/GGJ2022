@@ -88,8 +88,6 @@ public class GameManager : MonoBehaviour
         score += scoreAdd;
         UIManager.instance.UpdateScoreValueText(score);
         GameObject scoreObj = Instantiate(score50Prefab, itemPosition, score50Prefab.transform.rotation);
-
-
     }
 
     public void ShowLevelStartScreen()
@@ -113,6 +111,7 @@ public class GameManager : MonoBehaviour
     {
         myPlayer.StopPlayer();
         keys = 0;
+        UIManager.instance.UpdateKeysValueText(keys);
         bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
         if (nextLevelLoaded)
         {
