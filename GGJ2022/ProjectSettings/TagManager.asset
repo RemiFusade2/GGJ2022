@@ -11,6 +11,8 @@ TagManager:
   - Spawn Position
   - Key
   - Door
+  - Diamond
+  - Coal
   layers:
   - Default
   - TransparentFX

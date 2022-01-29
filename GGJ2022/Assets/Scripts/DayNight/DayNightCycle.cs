@@ -40,8 +40,14 @@ public class DayNightCycle : MonoBehaviour
 
     private void DestroyItselfAndSpawnNextPrefabAfterDelay(float delay)
     {
+        float remainingLife = 0;
+        if (this.GetComponent<LifetimeBehaviour>() != null)
+        {
+            remainingLife = this.GetComponent<LifetimeBehaviour>().GetLifespan();
+        }
+
         StartCoroutine(DestroyItselfAfterDelay(delay));
-        InstantiateManager.instance.SpawnObjectAfterDelay(dualPrefab, this.transform.position, dualPrefab.transform.rotation, this.transform.parent, delay + 0.01f, currentCycle, facingDirection);
+        InstantiateManager.instance.SpawnObjectAfterDelay(dualPrefab, this.transform.position, dualPrefab.transform.rotation, this.transform.parent, delay + 0.01f, currentCycle, facingDirection, remainingLife);
     }
 
     public void SwitchToDay()

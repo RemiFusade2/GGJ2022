@@ -77,4 +77,19 @@ public class LevelManager : MonoBehaviour
         currentLevelIndex = 0;
         ReloadLevel();
     }
+
+    public Vector3 GetExitPosition()
+    {
+        // Find Exit
+        Vector3 exitPosition = Vector2.zero;
+        foreach (Transform levelChild in currentLevelGameObject.transform)
+        {
+            if (levelChild.CompareTag("Exit"))
+            {
+                exitPosition = levelChild.transform.position;
+                break;
+            }
+        }
+        return exitPosition;
+    }
 }

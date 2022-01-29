@@ -147,12 +147,9 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("test");
-
         if (moveData != null && moveData.movementPattern == MOVEMENT_PATTERN.BACK_AND_FORTH)
         {
             bool shouldChangeDirection = Vector2.Dot(GetDirection(), (collision.GetContact(0).point - monsterRigidbody.position)) > 0;
-
 
             if (shouldChangeDirection)
             {

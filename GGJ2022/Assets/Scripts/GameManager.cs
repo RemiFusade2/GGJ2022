@@ -23,12 +23,16 @@ public class GameManager : MonoBehaviour
     public string imageDistorsionFloatName;
     public string timeOffsetFloatName;
     public string scrollingStaticRGBVectorName;
+    [Space]
+    public float timeBonusLifespan;
 
     [Header("References")]
     public Material screenMaterial;
 
     [Header("Prefabs")]
     public GameObject score50Prefab;
+    [Space]
+    public GameObject timeBonusPrefab;
 
     // Runtime
     [Header("Runtime")]
@@ -42,6 +46,10 @@ public class GameManager : MonoBehaviour
     private float cycleCurrentTimer;
 
     private PlayerController myPlayer;
+
+    private GameObject currentTimeBonus;
+
+
 
     private void Awake()
     {
@@ -117,12 +125,25 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        SpawnTimeBonus();
+
         UIManager.instance.HideAllPanels();
         UIManager.instance.ShowTopInfoPanel();
         SwitchToDayTime();
         UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
+
         gameIsRunning = true;
         currentLevelScore = 0;
+    }
+
+    private void SpawnTimeBonus()
+    {
+        Vector3 exitPosition = LevelManager.instance.GetExitPosition();
+
+        Transform parent = LevelManager.instance.currentLevelGameObject.transform;
+        currentTimeBonus = Instantiate(timeBonusPrefab, exitPosition - 0.3f * Vector3.right, timeBonusPrefab.transform.rotation, parent);
+        currentTimeBonus.GetComponent<DayNightCycle>().currentCycle = CYCLETYPE.DAY;
+        currentTimeBonus.GetComponent<LifetimeBehaviour>().SetLifespan(timeBonusLifespan);
     }
 
     public void FinishLevel()

@@ -91,6 +91,16 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.IncreaseScore(100, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
         }
+        else if (collision.collider.CompareTag("Diamond"))
+        {
+            GameManager.instance.IncreaseScore(1000, collision.gameObject.transform.position);
+            Destroy(collision.collider.gameObject);
+        }
+        else if (collision.collider.CompareTag("Coal"))
+        {
+            GameManager.instance.IncreaseScore(-1, collision.gameObject.transform.position);
+            Destroy(collision.collider.gameObject);
+        }
         else if (collision.collider.CompareTag("Key"))
         {
             GameManager.instance.AddKey();

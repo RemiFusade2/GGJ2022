@@ -11,12 +11,12 @@ public class InstantiateManager : MonoBehaviour
         instance = this;
     }
 
-    public void SpawnObjectAfterDelay(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent, float delay, CYCLETYPE cycle, DIRECTION facingDirection)
+    public void SpawnObjectAfterDelay(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent, float delay, CYCLETYPE cycle, DIRECTION facingDirection, float lifespan)
     {
-        StartCoroutine(SpawnPrefabfAfterDelay(prefab, position, rotation, parent, delay, cycle, facingDirection));
+        StartCoroutine(SpawnPrefabfAfterDelay(prefab, position, rotation, parent, delay, cycle, facingDirection, lifespan));
     }
 
-    private IEnumerator SpawnPrefabfAfterDelay(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent, float delay, CYCLETYPE cycle, DIRECTION facingDirection)
+    private IEnumerator SpawnPrefabfAfterDelay(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent, float delay, CYCLETYPE cycle, DIRECTION facingDirection, float lifespan)
     {
         yield return new WaitForSeconds(delay);
 
@@ -25,6 +25,11 @@ public class InstantiateManager : MonoBehaviour
             GameObject spawnedObject = Instantiate(prefab, position, rotation, parent);
             spawnedObject.GetComponent<DayNightCycle>().currentCycle = cycle;
             spawnedObject.GetComponent<DayNightCycle>().SetFacingDirection(facingDirection);
+
+            if (spawnedObject.GetComponent<LifetimeBehaviour>() != null)
+            {
+                spawnedObject.GetComponent<LifetimeBehaviour>().SetLifespan(lifespan);
+            }
         }
     }
 }
