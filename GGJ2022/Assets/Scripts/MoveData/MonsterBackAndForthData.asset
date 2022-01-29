@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4
   movementPattern: 0
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 2147483647

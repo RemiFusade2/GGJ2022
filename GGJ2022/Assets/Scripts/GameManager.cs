@@ -18,6 +18,14 @@ public class GameManager : MonoBehaviour
     [Header("Settings")]
     public float dayDuration;
     public float nightDuration;
+    [Space]
+    public string scrollingStaticFloatName;
+    public string imageDistorsionFloatName;
+    public string timeOffsetFloatName;
+    public string scrollingStaticRGBVectorName;
+
+    [Header("References")]
+    public Material screenMaterial;
 
     [Header("Prefabs")]
     public GameObject score50Prefab;
@@ -38,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         gameIsRunning = false;
+        glitchEffectIsRunning = false;
     }
 
     // Start is called before the first frame update
@@ -49,6 +58,7 @@ public class GameManager : MonoBehaviour
             item.InitCycle(CYCLETYPE.DAY);
         }
         myPlayer = GameObject.FindObjectOfType<PlayerController>();
+        StopGlitchEffect();
     }
 
     private void FixedUpdate()
@@ -59,7 +69,11 @@ public class GameManager : MonoBehaviour
 
             UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
 
-            if (cycleCurrentTimer <= 0)
+            if (cycleCurrentTimer <= 0.5f && !glitchEffectIsRunning)
+            {
+                TriggerGlitchEffect();
+            }
+            else if (cycleCurrentTimer <= 0)
             {
                 switch (currentCycleType)
                 {
@@ -179,5 +193,37 @@ public class GameManager : MonoBehaviour
         {
             item.SwitchToDay();
         }
+    }
+
+    private bool glitchEffectIsRunning;
+
+    public void TriggerGlitchEffect()
+    {
+        if (!glitchEffectIsRunning)
+        {
+            glitchEffectIsRunning = true;
+
+            screenMaterial.SetFloat(scrollingStaticFloatName, 0.1f);
+            screenMaterial.SetFloat(imageDistorsionFloatName, 0.05f);
+            screenMaterial.SetFloat(timeOffsetFloatName, Time.time);
+            screenMaterial.SetVector(scrollingStaticRGBVectorName, new Vector4(5, 5, 5, 0));
+
+            StartCoroutine(WaitAndStopGlitchEffect(0.9f));
+        }
+    }
+
+    private void StopGlitchEffect()
+    {
+        screenMaterial.SetFloat(scrollingStaticFloatName, 0.1f);
+        screenMaterial.SetFloat(imageDistorsionFloatName, 0.0f);
+        screenMaterial.SetVector(scrollingStaticRGBVectorName, new Vector4(0, 0, 0, 0));
+    }
+
+    private IEnumerator WaitAndStopGlitchEffect(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        StopGlitchEffect();
+
+        glitchEffectIsRunning = false;
     }
 }

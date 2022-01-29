@@ -14,4 +14,6 @@ public class MoveData : ScriptableObject
     public float moveSpeed = 5;
     
     public MOVEMENT_PATTERN movementPattern = MOVEMENT_PATTERN.NOT_MOVING;
+
+    public LayerMask obstacleLayerMask;
 }
