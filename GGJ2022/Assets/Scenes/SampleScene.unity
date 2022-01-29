@@ -1818,7 +1818,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: LEADERBOARD
+  m_Text: BEST SCORES
 --- !u!222 &803040070
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3034,6 +3034,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 0
   startInputName: Start
+  exitInputName: Exit
+  insertCoinInputName: InsertCoin
   currentScreen: 0
 --- !u!4 &1775636753
 Transform:
@@ -3146,7 +3148,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1781825501
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3404,8 +3406,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a4919b971b8d06439028b40c0577609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titlePanel: {fileID: 1781338885}
   leaderboardPanel: {fileID: 967937201}
+  titlePanel: {fileID: 1781338885}
+  titleText: {fileID: 2072814004}
   gameOverPanel: {fileID: 1685054659}
   gameOverText: {fileID: 688044428}
   gameOverStr: GAME OVER
@@ -3418,6 +3421,50 @@ MonoBehaviour:
   keysValueText: {fileID: 1024048211}
   livesValueSlider: {fileID: 463421198}
   dayNightCycleSlider: {fileID: 40335357}
+  titlePool:
+  - PAC-MOLE
+  - HEDGE INVADER
+  - MOLE-MAN
+  - ASTERMOLES
+  - HEDGOIDS
+  - MOLEPAGE
+  - MOLEAL KOMBAT
+  - FINAL GARDENY VII
+  - DON'T MOLE
+  - LIFE IS MOLE
+  - MOLE IS STRANGE
+  - VIRTUA MOLE
+  - SPACE MOLADER
+  - DONKEY MOLE
+  - GARDENAGA
+  - SUPER MOLIO
+  - MOLIPEDE
+  - MEGA MOLE
+  - MEGA MOLE X
+  - MOLIC & KNUCKLES
+  - GARDEN GAUNTLET II
+  - MOLEY ISLAND
+  - DINK MOLEWOOD
+  - ALTERED MOLE
+  - MOLEPUNK
+  - MULLE MOLLE
+  - MOLECRAFT
+  - HEDGERIS
+  - MOLES 'N GOBLINS
+  - IKARI MOLE-IORS
+  - READY MOLE ONE
+  - READY PLAYER MOLE
+  - MOLESPY HUNTER
+  - MOLE AND THE CITY
+  - MOLE IN THE SHELL
+  - PARKS & MOLE-EDICATION
+  - THE MOLEFICE
+  - 24 (MOLES)
+  - MOLE GAMES
+  - THE MOLE PLACE
+  - THE GOOD MOLE
+  - MOLTRIX
+  - GAME TITLE
 --- !u!4 &1859384169
 Transform:
   m_ObjectHideFlags: 0
@@ -3691,8 +3738,8 @@ RectTransform:
   m_Father: {fileID: 523300291}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3848,7 +3895,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3925,8 +3972,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -30}
-  m_SizeDelta: {x: 160, y: 50}
+  m_AnchoredPosition: {x: 0, y: -52}
+  m_SizeDelta: {x: 320, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2072814004
 MonoBehaviour:
@@ -3955,12 +4002,12 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 7
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
-    m_LineSpacing: 1
+    m_LineSpacing: 0.7
   m_Text: GAME TITLE
 --- !u!222 &2072814005
 CanvasRenderer:
@@ -4209,6 +4256,15 @@ MonoBehaviour:
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 0
+    - _id: 3
+      _name: Exit
+      _type: 1
+      _descriptiveName: Exit
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 0
     actionCategories:
     - _name: Default
       _descriptiveName: Default
@@ -4218,7 +4274,7 @@ MonoBehaviour:
     actionCategoryMap:
       list:
       - categoryId: 0
-        actionIds: 000000000100000002000000
+        actionIds: 00000000010000000200000003000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -4403,13 +4459,24 @@ MonoBehaviour:
         _modifierKey1: 0
         _modifierKey2: 0
         _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 3
+        _elementType: 1
+        _elementIdentifierId: -1
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 27
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
     mouseMaps: []
     customControllerMaps: []
     customControllers: []
     controllerMapLayoutManagerRuleSets: []
     controllerMapEnablerRuleSets: []
     playerIdCounter: 2
-    actionIdCounter: 3
+    actionIdCounter: 4
     actionCategoryIdCounter: 1
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 1

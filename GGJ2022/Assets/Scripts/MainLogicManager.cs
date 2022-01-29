@@ -2,6 +2,7 @@ using Rewired;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum SCREEN
 {
@@ -18,6 +19,8 @@ public class MainLogicManager : MonoBehaviour
     [Header("Input settings")]
     public int playerID;
     public string startInputName;
+    public string exitInputName;
+    public string insertCoinInputName;
     private Player rewiredPlayer;
     
     [Header("Runtime")]
@@ -38,6 +41,11 @@ public class MainLogicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (rewiredPlayer.GetButtonDown(exitInputName))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
         if (rewiredPlayer.GetButtonDown(startInputName))
         {
             switch(currentScreen)

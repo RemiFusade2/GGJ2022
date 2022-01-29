@@ -7,9 +7,12 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
-    [Header("References - main screens")]
-    public GameObject titlePanel;
+    [Header("References - leaderboard")]
     public GameObject leaderboardPanel;
+
+    [Header("References - title screen")]
+    public GameObject titlePanel;
+    public Text titleText;
 
     [Header("References - game over panel")]
     public GameObject gameOverPanel;
@@ -27,6 +30,9 @@ public class UIManager : MonoBehaviour
     public Text keysValueText;
     public Slider livesValueSlider;
     public Slider dayNightCycleSlider;
+
+    [Header("Settings")]
+    public List<string> titlePool;
 
     private void Awake()
     {
@@ -76,6 +82,8 @@ public class UIManager : MonoBehaviour
     public void ShowTitleScreen()
     {
         HideAllPanels();
+        int randomIndex = Random.Range(0, titlePool.Count);
+        titleText.text = titlePool[randomIndex];
         titlePanel.SetActive(true);
     }
     public void ShowGameOverScreen(bool finishedGame, int score)
