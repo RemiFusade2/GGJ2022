@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     // Runtime
     [Header("Runtime")]
     public int score;
+    private int currentLevelScore;
     public int keys;
     public int lives;
     public bool gameIsRunning;
@@ -91,8 +92,9 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         score = 0;
+        currentLevelScore = 0;
         keys = 0;
-        lives = 3;
+        lives = 2;
         UIManager.instance.UpdateScoreValueText(score);
         UIManager.instance.UpdateLivesValueText(lives);
     }
@@ -100,6 +102,7 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(int scoreAdd, Vector3 itemPosition)
     {
         score += scoreAdd;
+        currentLevelScore += scoreAdd;
         UIManager.instance.UpdateScoreValueText(score);
         GameObject scoreObj = Instantiate(score50Prefab, itemPosition, score50Prefab.transform.rotation);
     }
@@ -119,17 +122,23 @@ public class GameManager : MonoBehaviour
         SwitchToDayTime();
         UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
         gameIsRunning = true;
+        currentLevelScore = 0;
     }
 
     public void FinishLevel()
     {
         myPlayer.StopPlayer();
         keys = 0;
+        currentLevelScore = 0;
         UIManager.instance.UpdateKeysValueText(keys);
         bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
         if (nextLevelLoaded)
         {
             ShowLevelStartScreen();
+        }
+        else
+        {
+            MainLogicManager.instance.GameOver(true, score);
         }
     }
 
@@ -141,13 +150,16 @@ public class GameManager : MonoBehaviour
         }
         myPlayer.StopPlayer();
         lives--;
-        if (lives <= 0)
+        if (lives < 0)
         {
             gameIsRunning = false;
-            MainLogicManager.instance.GameOver();
+            MainLogicManager.instance.GameOver(false, score);
         }
         else
         {
+            score -= currentLevelScore;
+            currentLevelScore = 0;
+            UIManager.instance.UpdateScoreValueText(score);
             UIManager.instance.UpdateLivesValueText(lives);
             LevelManager.instance.ReloadLevel();
             ShowLevelStartScreen();

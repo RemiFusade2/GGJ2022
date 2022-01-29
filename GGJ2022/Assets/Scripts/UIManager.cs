@@ -9,8 +9,14 @@ public class UIManager : MonoBehaviour
 
     [Header("References - main screens")]
     public GameObject titlePanel;
-    public GameObject gameOverPanel;
     public GameObject leaderboardPanel;
+
+    [Header("References - game over panel")]
+    public GameObject gameOverPanel;
+    public Text gameOverText;
+    public string gameOverStr = "GAME OVER";
+    public string congratulationsStr = "CONGRATULATIONS";
+    public Text gameOverScoreTxt;
 
     [Header("References - in game")]
     public GameObject startLevelPanel;
@@ -19,7 +25,7 @@ public class UIManager : MonoBehaviour
     [Space]
     public Text scoreValueText;
     public Text keysValueText;
-    public Text livesValueText;
+    public Slider livesValueSlider;
     public Slider dayNightCycleSlider;
 
     private void Awake()
@@ -38,7 +44,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateLivesValueText(int newValue)
     {
-        livesValueText.text = newValue.ToString();
+        livesValueSlider.value = newValue;
     }
     public void UpdateKeysValueText(int newValue)
     {
@@ -72,10 +78,22 @@ public class UIManager : MonoBehaviour
         HideAllPanels();
         titlePanel.SetActive(true);
     }
-    public void ShowGameOverScreen()
+    public void ShowGameOverScreen(bool finishedGame, int score)
     {
         HideAllPanels();
-        ShowTopInfoPanel();
+
+        if (finishedGame)
+        {
+            gameOverText.text = congratulationsStr;
+        }
+        else
+        {
+            gameOverText.text = gameOverStr;
+        }
+
+        gameOverScoreTxt.text = "Score: " + score.ToString();
+
+        //showTopInfoPanel();
         gameOverPanel.SetActive(true);
     }
     public void ShowLeaderboardScreen()

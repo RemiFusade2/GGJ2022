@@ -78,9 +78,9 @@ public class MainLogicManager : MonoBehaviour
         UIManager.instance.ShowLeaderboardScreen();
     }
 
-    public void GameOver()
+    public void GameOver(bool successfullyFinishedTheGame, int score)
     {
         currentScreen = SCREEN.GAME_OVER;
-        UIManager.instance.ShowGameOverScreen();
+        UIManager.instance.ShowGameOverScreen(successfullyFinishedTheGame, score);
     }
 }
