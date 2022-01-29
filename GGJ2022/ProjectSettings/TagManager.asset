@@ -9,6 +9,8 @@ TagManager:
   - Exit
   - TileMap
   - Spawn Position
+  - Key
+  - Door
   layers:
   - Default
   - TransparentFX

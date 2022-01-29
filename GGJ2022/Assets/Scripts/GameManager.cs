@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     // Runtime
     [Header("Runtime")]
     public int score;
+    public int keys;
     public int lives;
     public bool gameIsRunning;
 
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
     public void ResetGame()
     {
         score = 0;
+        keys = 0;
         lives = 3;
         UIManager.instance.UpdateScoreValueText(score);
         UIManager.instance.UpdateLivesValueText(lives);
@@ -104,6 +106,7 @@ public class GameManager : MonoBehaviour
     public void FinishLevel()
     {
         myPlayer.StopPlayer();
+        keys = 0;
         bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
         if (nextLevelLoaded)
         {
@@ -130,6 +133,22 @@ public class GameManager : MonoBehaviour
             LevelManager.instance.ReloadLevel();
             ShowLevelStartScreen();
         }
+    }
+
+    public void AddKey()
+    {
+        keys++;
+        UIManager.instance.UpdateKeysValueText(keys);
+    }
+    public bool UseKey()
+    {
+        bool canUseKey = (keys > 0);
+        if (canUseKey)
+        {
+            keys--;
+            UIManager.instance.UpdateKeysValueText(keys);
+        }
+        return canUseKey;
     }
 
 

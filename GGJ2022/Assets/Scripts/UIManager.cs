@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     public Text levelTitleText;
     [Space]
     public Text scoreValueText;
+    public Text keysValueText;
     public Text livesValueText;
     public Slider dayNightCycleSlider;
 
@@ -38,6 +39,10 @@ public class UIManager : MonoBehaviour
     public void UpdateLivesValueText(int newValue)
     {
         livesValueText.text = newValue.ToString();
+    }
+    public void UpdateKeysValueText(int newValue)
+    {
+        keysValueText.text = newValue.ToString();
     }
 
     public void HideAllPanels()

@@ -85,6 +85,24 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.IncreaseScore(100);
             Destroy(collision.collider.gameObject);
         }
+        else if (collision.collider.CompareTag("Key"))
+        {
+            GameManager.instance.AddKey();
+            Destroy(collision.collider.gameObject);
+        }
+        else if (collision.collider.CompareTag("Door"))
+        {
+            if (GameManager.instance.UseKey())
+            {
+                // we open door
+                GameManager.instance.IncreaseScore(500);
+                Destroy(collision.collider.gameObject);
+            }
+            else
+            {
+                // we can't open the door, we do nothing
+            }
+        }
     }
 
     public void StopPlayer()
