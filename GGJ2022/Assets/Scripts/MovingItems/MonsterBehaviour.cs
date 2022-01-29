@@ -15,6 +15,7 @@ public class MonsterBehaviour : MonoBehaviour
     private Rigidbody2D monsterRigidbody;
 
     public MoveData moveData;
+    public Animator animator;
 
     public DIRECTION GetCurrentDirection()
     {
@@ -61,7 +62,7 @@ public class MonsterBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public Vector2 GetDirection()
@@ -83,6 +84,25 @@ public class MonsterBehaviour : MonoBehaviour
                 break;
         }
         return direction;
+    }
+
+    private void SetAnimation()
+    {
+        switch (GetCurrentDirection())
+        {
+            case DIRECTION.UP:
+                animator.SetInteger("Direction", 0);
+                break;
+            case DIRECTION.DOWN:
+                animator.SetInteger("Direction", 1);
+                break;
+            case DIRECTION.LEFT:
+                animator.SetInteger("Direction", 2);
+                break;
+            case DIRECTION.RIGHT:
+                animator.SetInteger("Direction", 3);
+                break;
+        }
     }
 
     private void FixedUpdate()
@@ -113,9 +133,11 @@ public class MonsterBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("test");
+
         if (moveData != null && moveData.movementPattern == MOVEMENT_PATTERN.BACK_AND_FORTH)
         {
-            switch(GetCurrentDirection())
+            switch (GetCurrentDirection())
             {
                 case DIRECTION.UP:
                     SetCurrentDirection(DIRECTION.DOWN);
@@ -130,6 +152,8 @@ public class MonsterBehaviour : MonoBehaviour
                     SetCurrentDirection(DIRECTION.RIGHT);
                     break;
             }
+
+            SetAnimation();
         }
     }
 }
