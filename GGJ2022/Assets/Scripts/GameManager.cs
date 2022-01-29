@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
             item.InitCycle(CYCLETYPE.DAY);
         }
         myPlayer = GameObject.FindObjectOfType<PlayerController>();
+        StopGlitchEffect();
     }
 
     private void FixedUpdate()
@@ -209,14 +210,19 @@ public class GameManager : MonoBehaviour
 
             StartCoroutine(WaitAndStopGlitchEffect(0.9f));
         }
-}
+    }
+
+    private void StopGlitchEffect()
+    {
+        screenMaterial.SetFloat(scrollingStaticFloatName, 0.1f);
+        screenMaterial.SetFloat(imageDistorsionFloatName, 0.0f);
+        screenMaterial.SetVector(scrollingStaticRGBVectorName, new Vector4(0, 0, 0, 0));
+    }
 
     private IEnumerator WaitAndStopGlitchEffect(float delay)
     {
         yield return new WaitForSeconds(delay);
-        screenMaterial.SetFloat(scrollingStaticFloatName, 0.1f);
-        screenMaterial.SetFloat(imageDistorsionFloatName, 0.0f);
-        screenMaterial.SetVector(scrollingStaticRGBVectorName, new Vector4(0, 0, 0, 0));
+        StopGlitchEffect();
 
         glitchEffectIsRunning = false;
     }

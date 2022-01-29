@@ -39,6 +39,8 @@ public class MonsterBehaviour : MonoBehaviour
                     break;
             }
         }
+
+        SetAnimation();
     }
 
     // Start is called before the first frame update
@@ -57,6 +59,8 @@ public class MonsterBehaviour : MonoBehaviour
                 monsterRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
                 break;
         }
+
+        SetAnimation();
     }
 
     // Update is called once per frame
@@ -154,7 +158,6 @@ public class MonsterBehaviour : MonoBehaviour
                         SetCurrentDirection(DIRECTION.RIGHT);
                         break;
                 }
-                SetAnimation();
             }
         }
     }

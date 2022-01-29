@@ -67,7 +67,8 @@ Material:
     - _ScanlineHeight: 12
     - _ScanlineStrength: 0
     - _StaticStrength: 0.1
-    - _Time_Offset: 3.0406702
+    - _Time_Offset: 12.4
+    - _Time_Scale: 1.1
     m_Colors:
     - _CRTWarpStrength: {r: -0.01, g: 0.29, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
