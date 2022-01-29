@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public int lives;
     public bool gameIsRunning;
 
-    private CYCLETYPE currentCycleType;
+    public CYCLETYPE currentCycleType;
     private float cycleCurrentTimer;
 
     private PlayerController myPlayer;
@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 
 
     }
-    
+
     public void ShowLevelStartScreen()
     {
         gameIsRunning = false;
@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
         gameIsRunning = true;
     }
-    
+
     public void FinishLevel()
     {
         myPlayer.StopPlayer();
