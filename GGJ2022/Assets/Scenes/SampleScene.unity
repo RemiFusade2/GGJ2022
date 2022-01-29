@@ -2701,30 +2701,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1833524390}
-    - target: {fileID: 7269644911531320276, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
-      propertyPath: allLevelPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 2293629850242004190, guid: 8076c19c573215e438a3279c996de631, type: 3}
-    - target: {fileID: 7269644911531320276, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
-      propertyPath: allLevelPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 2293629850242004190, guid: 242cc19094983d344907bad702c37aa2, type: 3}
-    - target: {fileID: 7269644911531320276, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
-      propertyPath: allLevelPrefabs.Array.data[5]
-      value: 
-      objectReference: {fileID: 2293629850242004190, guid: 143656ff3dee4ca40800b70812298f0f, type: 3}
-    - target: {fileID: 7269644911531320276, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
-      propertyPath: allLevelPrefabs.Array.data[6]
-      value: 
-      objectReference: {fileID: 2293629850242004190, guid: 7d450911b1eda0247874a4d0359718ba, type: 3}
-    - target: {fileID: 7269644911531320276, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
-      propertyPath: allLevelPrefabs.Array.data[7]
-      value: 
-      objectReference: {fileID: 2293629850242004190, guid: 16d2aebbcc415c341ae50fa92dd68df7, type: 3}
-    - target: {fileID: 7269644911531320276, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
-      propertyPath: allLevelPrefabs.Array.data[8]
-      value: 
-      objectReference: {fileID: 2293629850242004190, guid: 8b561904d8ccc8544b55fbd06dcb3dd3, type: 3}
     - target: {fileID: 7269644911531320277, guid: ee656cb2c9c9a7a4f8ef7aa48933b40e, type: 3}
       propertyPath: m_RootOrder
       value: 8
