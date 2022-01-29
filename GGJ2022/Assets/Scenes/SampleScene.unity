@@ -1299,6 +1299,7 @@ MonoBehaviour:
   score: 0
   lives: 0
   gameIsRunning: 0
+  currentCycleType: 0
 --- !u!4 &1136920686
 Transform:
   m_ObjectHideFlags: 0
@@ -2054,6 +2055,7 @@ MonoBehaviour:
   score: 0
   lives: 0
   gameIsRunning: 0
+  currentCycleType: 0
 --- !u!4 &1859384169
 Transform:
   m_ObjectHideFlags: 0

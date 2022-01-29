@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     public float HorizontalInput { get; private set; }
     public float VerticalInput { get; private set; }
 
+    [Header("Animator")]
+    public Animator animator;
+    private bool isDay = true;
+
     private Rigidbody2D playerRigidbody;
 
     // Start is called before the first frame update
@@ -32,13 +36,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
     {
         UpdateHorizontalInput();
         UpdateVerticalInput();
+
+        Animate();
 
         if (GameManager.instance.gameIsRunning)
         {
@@ -82,6 +88,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Animate()
+    {
+        if (VerticalInput != 0)
+        {
+            animator.SetFloat("VerticalSpeed", VerticalInput);
+        }
+        else
+        {
+            animator.SetFloat("VerticalSpeed", 0f);
+        }
+
+        if (HorizontalInput != 0)
+        {
+            animator.SetFloat("HorizontalSpeed", HorizontalInput);
+            // To prioritize left/right animation over up/down, otherwise it flicker between them if two arrows are pressed.
+            animator.SetFloat("VerticalSpeed", 0f);
+        }
+        else
+        {
+            animator.SetFloat("HorizontalSpeed", 0f);
+        }
+
+        // Change player sprite depending on cycle.
+        isDay = GameManager.instance.currentCycleType == CYCLETYPE.DAY ? true : false;
+        animator.SetBool("IsDay", isDay);
+    }
 
     public void Teleport(Vector2 newPosition)
     {
