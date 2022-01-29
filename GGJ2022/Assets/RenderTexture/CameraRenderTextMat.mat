@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: CameraRenderTextMat
   m_Shader: {fileID: -6465566751694194690, guid: 5ba45d0e77bc1514aa33a94cf1e6379f, type: 3}
-  m_ShaderKeywords: STATIC_ON
+  m_ShaderKeywords: DISTORT_ON SCROLL_STATIC_ON STATIC_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -54,25 +54,26 @@ Material:
     m_Ints: []
     m_Floats:
     - CRT_WARP: 0
-    - DISTORT: 0
+    - DISTORT: 1
     - RGB_STRIPES: 0
-    - SCROLL_STATIC: 0
+    - SCROLL_STATIC: 1
     - STATIC: 1
     - Vector1_1BFF6B46: 128
     - Vector1_5660967D: 1
-    - _DistortionStrength: 0.05
+    - _DistortionStrength: 0
     - _EnableExternalAlpha: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ScanlineHeight: 12
-    - _ScanlineStrength: 0.15
+    - _ScanlineStrength: 0
     - _StaticStrength: 0.1
-    - _Time_Offset: 5
+    - _Time_Offset: 3.0406702
     m_Colors:
     - _CRTWarpStrength: {r: -0.01, g: 0.29, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Scrolling_Static_RGB: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &6320669478613730767
 MonoBehaviour:

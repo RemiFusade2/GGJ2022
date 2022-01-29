@@ -99,36 +99,39 @@ public class MonsterBehaviour : MonoBehaviour
             monsterRigidbody.velocity = Vector2.zero;
         }
     }
-
-    /*
-    private List<DIRECTION> GetPossibleDirections()
+    
+    private bool FreePathInDirection(Vector2 dir)
     {
+        bool pathIsFree = true;
         float raycastDistance = 1.0f;
-        LayerMask obstacleLayerMask;
-        if (Physics2D.Raycast(this.transform.position, Vector2.right, raycastDistance, obstacleLayerMask))
+        if (Physics2D.Raycast(this.transform.position, dir, raycastDistance, moveData.obstacleLayerMask))
         {
-
+            pathIsFree = false;
         }
-    }*/
+        return pathIsFree;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (moveData != null && moveData.movementPattern == MOVEMENT_PATTERN.BACK_AND_FORTH)
         {
-            switch(GetCurrentDirection())
+            if (!FreePathInDirection(GetDirection()))
             {
-                case DIRECTION.UP:
-                    SetCurrentDirection(DIRECTION.DOWN);
-                    break;
-                case DIRECTION.DOWN:
-                    SetCurrentDirection(DIRECTION.UP);
-                    break;
-                case DIRECTION.RIGHT:
-                    SetCurrentDirection(DIRECTION.LEFT);
-                    break;
-                case DIRECTION.LEFT:
-                    SetCurrentDirection(DIRECTION.RIGHT);
-                    break;
+                switch (GetCurrentDirection())
+                {
+                    case DIRECTION.UP:
+                        SetCurrentDirection(DIRECTION.DOWN);
+                        break;
+                    case DIRECTION.DOWN:
+                        SetCurrentDirection(DIRECTION.UP);
+                        break;
+                    case DIRECTION.RIGHT:
+                        SetCurrentDirection(DIRECTION.LEFT);
+                        break;
+                    case DIRECTION.LEFT:
+                        SetCurrentDirection(DIRECTION.RIGHT);
+                        break;
+                }
             }
         }
     }

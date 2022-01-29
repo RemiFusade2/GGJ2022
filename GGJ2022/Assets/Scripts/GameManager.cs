@@ -19,9 +19,10 @@ public class GameManager : MonoBehaviour
     public float dayDuration;
     public float nightDuration;
     [Space]
-    public string scrollingStaticBoolName;
-    public string imageDistorsionBoolName;
+    public string scrollingStaticFloatName;
+    public string imageDistorsionFloatName;
     public string timeOffsetFloatName;
+    public string scrollingStaticRGBVectorName;
 
     [Header("References")]
     public Material screenMaterial;
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         gameIsRunning = false;
+        glitchEffectIsRunning = false;
     }
 
     // Start is called before the first frame update
@@ -66,7 +68,11 @@ public class GameManager : MonoBehaviour
 
             UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
 
-            if (cycleCurrentTimer <= 0)
+            if (cycleCurrentTimer <= 0.5f && !glitchEffectIsRunning)
+            {
+                TriggerGlitchEffect();
+            }
+            else if (cycleCurrentTimer <= 0)
             {
                 switch (currentCycleType)
                 {
@@ -169,8 +175,6 @@ public class GameManager : MonoBehaviour
         currentCycleType = CYCLETYPE.NIGHT;
         cycleCurrentTimer = nightDuration;
 
-        TriggerGlitchEffect();
-
         DayNightCycle[] items = FindObjectsOfType<DayNightCycle>();
         foreach (DayNightCycle item in items)
         {
@@ -183,8 +187,6 @@ public class GameManager : MonoBehaviour
         currentCycleType = CYCLETYPE.DAY;
         cycleCurrentTimer = dayDuration;
 
-        TriggerGlitchEffect();
-
         DayNightCycle[] items = FindObjectsOfType<DayNightCycle>();
         foreach (DayNightCycle item in items)
         {
@@ -192,20 +194,30 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private bool glitchEffectIsRunning;
 
     public void TriggerGlitchEffect()
     {
-        screenMaterial.SetInt(scrollingStaticBoolName, 1);
-        screenMaterial.SetInt(imageDistorsionBoolName, 1);
-        screenMaterial.SetFloat(timeOffsetFloatName, Time.time);
-        StartCoroutine(WaitAndStopGlitchEffect(1.0f));
+        if (!glitchEffectIsRunning)
+        {
+            glitchEffectIsRunning = true;
+
+            screenMaterial.SetFloat(scrollingStaticFloatName, 0.1f);
+            screenMaterial.SetFloat(imageDistorsionFloatName, 0.05f);
+            screenMaterial.SetFloat(timeOffsetFloatName, Time.time);
+            screenMaterial.SetVector(scrollingStaticRGBVectorName, new Vector4(5, 5, 5, 0));
+
+            StartCoroutine(WaitAndStopGlitchEffect(0.9f));
+        }
 }
 
     private IEnumerator WaitAndStopGlitchEffect(float delay)
     {
         yield return new WaitForSeconds(delay);
-        screenMaterial.SetInt(scrollingStaticBoolName, 0);
-        screenMaterial.SetInt(imageDistorsionBoolName, 0);
+        screenMaterial.SetFloat(scrollingStaticFloatName, 0.1f);
+        screenMaterial.SetFloat(imageDistorsionFloatName, 0.0f);
+        screenMaterial.SetVector(scrollingStaticRGBVectorName, new Vector4(0, 0, 0, 0));
 
+        glitchEffectIsRunning = false;
     }
 }

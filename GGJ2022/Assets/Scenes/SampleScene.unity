@@ -339,9 +339,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allLevelPrefabs:
-  - {fileID: 2293629850242004190, guid: 34d0a176d556ab346a7eee88e15ab13c, type: 3}
+  - {fileID: 2293629850242004190, guid: 16d2aebbcc415c341ae50fa92dd68df7, type: 3}
   - {fileID: 2293629850242004190, guid: 8b561904d8ccc8544b55fbd06dcb3dd3, type: 3}
-  - {fileID: 2293629850242004190, guid: c7e5e226da39814449d73e7ee7f34957, type: 3}
+  - {fileID: 2293629850242004190, guid: 791d4ecc1a7cf02408f580f49917a883, type: 3}
   player: {fileID: 1833524390}
   currentLevelGameObject: {fileID: 0}
   currentLevelIndex: 0
@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 486536436}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -546,7 +546,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10
   field of view: 60
   orthographic: 1
   orthographic size: 60
@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1799,9 +1799,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dayDuration: 5
   nightDuration: 5
-  scrollingStaticBoolName: SCROLL_STATIC_ON
-  imageDistorsionBoolName: DISTORT_ON
+  scrollingStaticFloatName: _StaticStrength
+  imageDistorsionFloatName: _DistortionStrength
   timeOffsetFloatName: _Time_Offset
+  scrollingStaticRGBVectorName: _Scrolling_Static_RGB
   screenMaterial: {fileID: 2100000, guid: 48631f166b991bf48b837f2e8f419cd5, type: 2}
   score50Prefab: {fileID: 6591550035465372920, guid: e24afbc157efe314bbf4cdcaef14bb7a, type: 3}
   score: 0
