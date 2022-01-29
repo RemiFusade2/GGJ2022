@@ -124,19 +124,26 @@ public class MonsterBehaviour : MonoBehaviour
         }
     }
 
+    /*
     private bool FreePathInDirection(Vector2 dir)
     {
         bool pathIsFree = true;
-        float raycastDistance = 1.0f;
-        if (Physics2D.Raycast(this.transform.position, dir, raycastDistance, moveData.obstacleLayerMask))
+        float raycastDistance = 0.6f;
+
+        RaycastHit2D[] allRayHits = Physics2D.RaycastAll(this.transform.position, dir, raycastDistance, moveData.obstacleLayerMask);
+
+        foreach (RaycastHit2D hit in allRayHits)
         {
-            pathIsFree = false;
+            if (!hit.collider.Equals(this))
+            {
+                pathIsFree = false;
+            }
         }
 
         Debug.DrawRay(this.transform.position, new Vector3(dir.x, dir.y, 0), Color.red, 1.0f);
 
         return pathIsFree;
-    }
+    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -144,7 +151,10 @@ public class MonsterBehaviour : MonoBehaviour
 
         if (moveData != null && moveData.movementPattern == MOVEMENT_PATTERN.BACK_AND_FORTH)
         {
-            if (!FreePathInDirection(GetDirection()))
+            bool shouldChangeDirection = Vector2.Dot(GetDirection(), (collision.GetContact(0).point - monsterRigidbody.position)) > 0;
+
+
+            if (shouldChangeDirection)
             {
                 switch (GetCurrentDirection())
                 {
