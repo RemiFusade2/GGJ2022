@@ -95,8 +95,8 @@ GameObject:
   - component: {fileID: 8297916002524559997}
   - component: {fileID: 8297916002524559984}
   - component: {fileID: 8297916002524559986}
-  - component: {fileID: 8297916002524559985}
   - component: {fileID: 1020241996}
+  - component: {fileID: 6921719720511626198}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Monster
@@ -133,7 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveData: {fileID: 11400000, guid: a37ee77c980de9540aa3f06588a9042c, type: 2}
-  currentDirection: 2
 --- !u!50 &8297916002524559986
 Rigidbody2D:
   serializedVersion: 4
@@ -155,22 +154,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!58 &8297916002524559985
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8297916002524559996}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4
 --- !u!114 &1020241996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,3 +172,29 @@ MonoBehaviour:
   dualPrefab: {fileID: 840359513383327701, guid: e490107a732e9cb4bb07e94df7bcd8d1, type: 3}
   dayGameObject: {fileID: 0}
   nightGameObject: {fileID: 0}
+--- !u!61 &6921719720511626198
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8297916002524559996}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9}
+  m_EdgeRadius: 0

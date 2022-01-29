@@ -86,6 +86,29 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.instance.LoseLife();
         }
+        else if (collision.collider.CompareTag("Collectible"))
+        {
+            GameManager.instance.IncreaseScore(100);
+            Destroy(collision.collider.gameObject);
+        }
+        else if (collision.collider.CompareTag("Key"))
+        {
+            GameManager.instance.AddKey();
+            Destroy(collision.collider.gameObject);
+        }
+        else if (collision.collider.CompareTag("Door"))
+        {
+            if (GameManager.instance.UseKey())
+            {
+                // we open door
+                GameManager.instance.IncreaseScore(500);
+                Destroy(collision.collider.gameObject);
+            }
+            else
+            {
+                // we can't open the door, we do nothing
+            }
+        }
     }
 
     private void Animate()
@@ -115,11 +138,17 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDay", isDay);
     }
 
+    public void StopPlayer()
+    {
+        playerRigidbody.velocity = Vector2.zero;
+    }
+
     public void Teleport(Vector2 newPosition)
     {
         playerRigidbody.isKinematic = true;
         playerRigidbody.GetComponent<Collider2D>().enabled = false;
-        playerRigidbody.transform.localPosition = newPosition;
+        StopPlayer();
+        playerRigidbody.position = newPosition;
 
         playerRigidbody.GetComponent<Collider2D>().enabled = true;
         playerRigidbody.isKinematic = false;
