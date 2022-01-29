@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Collectible"))
         {
-            GameManager.instance.IncreaseScore(100);
+            GameManager.instance.IncreaseScore(100, collision.gameObject.transform.position);
             Destroy(collision.gameObject);
         }
         else if (collision.CompareTag("Exit"))
@@ -88,12 +88,13 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.collider.CompareTag("Collectible"))
         {
-            GameManager.instance.IncreaseScore(100);
+            GameManager.instance.IncreaseScore(100, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
         }
         else if (collision.collider.CompareTag("Key"))
         {
             GameManager.instance.AddKey();
+            GameManager.instance.IncreaseScore(50, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
         }
         else if (collision.collider.CompareTag("Door"))
@@ -101,7 +102,7 @@ public class PlayerController : MonoBehaviour
             if (GameManager.instance.UseKey())
             {
                 // we open door
-                GameManager.instance.IncreaseScore(500);
+                GameManager.instance.IncreaseScore(500, collision.gameObject.transform.position);
                 Destroy(collision.collider.gameObject);
             }
             else
