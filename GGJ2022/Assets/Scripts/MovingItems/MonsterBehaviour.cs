@@ -23,12 +23,39 @@ public class MonsterBehaviour : MonoBehaviour
     public void SetCurrentDirection(DIRECTION newDirection)
     {
         GetComponent<DayNightCycle>().facingDirection = newDirection;
+
+        if (monsterRigidbody != null)
+        {
+            switch (newDirection)
+            {
+                case DIRECTION.DOWN:
+                case DIRECTION.UP:
+                    monsterRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+                    break;
+                case DIRECTION.LEFT:
+                case DIRECTION.RIGHT:
+                    monsterRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                    break;
+            }
+        }
     }
 
     // Start is called before the first frame update
     void Start()
     {
         monsterRigidbody = GetComponent<Rigidbody2D>();
+
+        switch (GetComponent<DayNightCycle>().facingDirection)
+        {
+            case DIRECTION.DOWN:
+            case DIRECTION.UP:
+                monsterRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+                break;
+            case DIRECTION.LEFT:
+            case DIRECTION.RIGHT:
+                monsterRigidbody.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+                break;
+        }
     }
 
     // Update is called once per frame

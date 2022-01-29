@@ -13,6 +13,7 @@ public enum CYCLETYPE
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    
 
     [Header("Settings")]
     public float dayDuration;
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     private CYCLETYPE currentCycleType;
     private float cycleCurrentTimer;
 
+    private PlayerController myPlayer;
 
     private void Awake()
     {
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
         {
             item.InitCycle(CYCLETYPE.DAY);
         }
+        myPlayer = GameObject.FindObjectOfType<PlayerController>();
     }
 
     private void FixedUpdate()
@@ -100,13 +103,21 @@ public class GameManager : MonoBehaviour
     
     public void FinishLevel()
     {
-        LevelManager.instance.LoadNextLevel();
-        UIManager.instance.ShowStartLevelPanel(LevelManager.instance.currentLevelIndex);
+        myPlayer.StopPlayer();
+        bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
+        if (nextLevelLoaded)
+        {
+            ShowLevelStartScreen();
+        }
     }
 
     public void LoseLife()
     {
-        Debug.Log("lose life. Lives remaining: " + lives);
+        if (myPlayer == null)
+        {
+            Debug.LogError("you're kidding me");
+        }
+        myPlayer.StopPlayer();
         lives--;
         if (lives <= 0)
         {

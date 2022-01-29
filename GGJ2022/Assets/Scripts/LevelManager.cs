@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LoadFirstLevel();
+        //LoadFirstLevel();
     }
 
     public bool IsLastLevel()
@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
         // Position player at spawn point
         foreach (Transform levelChild in currentLevelGameObject.transform)
         {
-            if (levelChild.CompareTag("Spawn Position"))
+            if (levelChild.CompareTag("Spawn Position") && player != null)
             {
                 player.GetComponent<PlayerController>().Teleport(new Vector2(levelChild.position.x, levelChild.position.y));
                 break;
@@ -56,13 +56,20 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void LoadNextLevel()
+    public bool LoadNextLevel()
     {
         currentLevelIndex++;
-        if (!IsLastLevel())
+        bool nextLevelLoaded = false;
+        if (IsLastLevel())
+        {
+            MainLogicManager.instance.DisplayLeaderboard();
+        }
+        else 
         {
             ReloadLevel();
+            nextLevelLoaded = true;
         }
+        return nextLevelLoaded;
     }
 
     public void LoadFirstLevel()

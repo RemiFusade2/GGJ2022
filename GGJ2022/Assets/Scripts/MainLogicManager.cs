@@ -49,7 +49,10 @@ public class MainLogicManager : MonoBehaviour
                     GameManager.instance.ShowLevelStartScreen();
                     break;
                 case SCREEN.LEVEL:
-                    GameManager.instance.StartGame();
+                    if (!GameManager.instance.gameIsRunning)
+                    {
+                        GameManager.instance.StartGame();
+                    }
                     break;
                 case SCREEN.GAME_OVER:
                     DisplayLeaderboard();

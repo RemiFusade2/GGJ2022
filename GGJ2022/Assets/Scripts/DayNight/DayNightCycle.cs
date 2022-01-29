@@ -38,6 +38,12 @@ public class DayNightCycle : MonoBehaviour
         currentCycle = startCycleType;
     }
 
+    private void DestroyItselfAndSpawnNextPrefabAfterDelay(float delay)
+    {
+        StartCoroutine(DestroyItselfAfterDelay(delay));
+        InstantiateManager.instance.SpawnObjectAfterDelay(dualPrefab, this.transform.position, dualPrefab.transform.rotation, this.transform.parent, delay + 0.01f, currentCycle, facingDirection);
+    }
+
     public void SwitchToDay()
     {
         bool toggle = (currentCycle != CYCLETYPE.DAY);
@@ -52,8 +58,7 @@ public class DayNightCycle : MonoBehaviour
 
                 if (toggle)
                 {
-                    StartCoroutine(DestroyItselfAfterDelay(0.1f));
-                    StartCoroutine(SpawnPrefabfAfterDelay(dualPrefab, 0.08f));
+                    DestroyItselfAndSpawnNextPrefabAfterDelay(0.01f);
                 }
 
                 break;
@@ -78,8 +83,7 @@ public class DayNightCycle : MonoBehaviour
 
                 if (toggle)
                 {
-                    StartCoroutine(DestroyItselfAfterDelay(0.1f));
-                    StartCoroutine(SpawnPrefabfAfterDelay(dualPrefab, 0.08f));
+                    DestroyItselfAndSpawnNextPrefabAfterDelay(0.01f);
                 }
 
                 break;
@@ -95,11 +99,13 @@ public class DayNightCycle : MonoBehaviour
         yield return new WaitForSeconds(delay);
         Destroy(this.gameObject);
     }
-    private IEnumerator SpawnPrefabfAfterDelay(GameObject prefab, float delay)
+
+    public void SetFacingDirection(DIRECTION facingDir)
     {
-        yield return new WaitForSeconds(delay);
-        GameObject spawnedObject = Instantiate(prefab, this.transform.position, prefab.transform.rotation, this.transform.parent);
-        spawnedObject.GetComponent<DayNightCycle>().currentCycle = currentCycle;
-        spawnedObject.GetComponent<DayNightCycle>().facingDirection = facingDirection;
+        facingDirection = facingDir;
+        if (this.GetComponent<MonsterBehaviour>() != null)
+        {
+            this.GetComponent<MonsterBehaviour>().SetCurrentDirection(facingDir);
+        }
     }
 }
