@@ -1220,7 +1220,7 @@ MonoBehaviour:
   grabDiamondSFX: {fileID: 8300000, guid: 8e83976d8e038894598b0918332adccc, type: 3}
   grabCoalSFX: {fileID: 8300000, guid: ff20d1bf245496a49b0f15ba7322cdc2, type: 3}
   openDoorSFX: {fileID: 8300000, guid: f072a6511f622ba4ab6c90041089ff71, type: 3}
-  loseLifeSFX: {fileID: 8300000, guid: 091f1be8a94332d4eac0761aba5528cb, type: 3}
+  loseLifeSFX: {fileID: 8300000, guid: 83658f1d78d1c2144b122aab28a667d8, type: 3}
   finishLevelSFX: {fileID: 0}
   dayNightSwitchSFX: {fileID: 8300000, guid: 32f48216728c8424f87c5138d67f4244, type: 3}
 --- !u!1 &311489896
