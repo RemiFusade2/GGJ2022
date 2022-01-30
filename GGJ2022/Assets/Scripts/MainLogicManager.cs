@@ -152,11 +152,13 @@ public class MainLogicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool ignoreNextStartInput = false;
+
+        float verticalInput = rewiredPlayer.GetAxis(verticalInputName);
+        float horizontalInput = rewiredPlayer.GetAxis(horizontalInputName);
+
         if (currentScreen == SCREEN.TITLE)
         {
-            float verticalInput = rewiredPlayer.GetAxis(verticalInputName);
-            float horizontalInput = rewiredPlayer.GetAxis(horizontalInputName);
-
             if (verticalInput > 0.8f && !upRegistered)
             {
                 upRegistered = true;
@@ -216,7 +218,42 @@ public class MainLogicManager : MonoBehaviour
             UIManager.instance.InsertOneCoin();
         }
 
-        if (rewiredPlayer.GetButtonDown(startInputName))
+        if (currentScreen == SCREEN.LEADERBOARD)
+        {
+            // leaderboard controls
+            if (verticalInput > 0.1f && !upRegistered)
+            {
+                upRegistered = true;
+                downRegistered = false;
+                UIManager.instance.ActiveScoreEntrySwitchLetter(-1);
+            }
+            if (verticalInput < -0.1f && !downRegistered)
+            {
+                downRegistered = true;
+                upRegistered = false;
+                UIManager.instance.ActiveScoreEntrySwitchLetter(1);
+            }
+            else if (verticalInput >= -0.08f && verticalInput <= 0.08f)
+            {
+                upRegistered = false;
+                downRegistered = false;
+            }
+
+            if (rewiredPlayer.GetButtonDown(startInputName))
+            {
+                if (LeaderboardManager.instance.activeScoreEntered)
+                {
+                    DisplayTitleScreen();
+                    ignoreNextStartInput = true;
+                }
+                else
+                {
+                    UIManager.instance.ActiveScoreEntryConfirmLetter();
+                }
+            }
+        }
+
+        if (rewiredPlayer.GetButtonDown(startInputName) && !ignoreNextStartInput)
         {
             if (currentScreen == SCREEN.TITLE)
             {
@@ -243,7 +280,7 @@ public class MainLogicManager : MonoBehaviour
                     DisplayLeaderboard();
                     break;
                 case SCREEN.LEADERBOARD:
-                    DisplayTitleScreen();
+                    //DisplayTitleScreen();
                     break;
                 default:
                     break;
