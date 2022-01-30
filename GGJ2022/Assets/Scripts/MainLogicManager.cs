@@ -215,6 +215,7 @@ public class MainLogicManager : MonoBehaviour
             {
                 RegisterInputForKonamiCode(DIRECTION.LEFT, true, false);
             }
+            AudioManager.instance.PlayInsertCoinSFX();
             UIManager.instance.InsertOneCoin();
         }
 
