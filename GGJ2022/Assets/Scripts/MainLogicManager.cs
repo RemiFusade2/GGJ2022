@@ -215,6 +215,7 @@ public class MainLogicManager : MonoBehaviour
             {
                 RegisterInputForKonamiCode(DIRECTION.LEFT, true, false);
             }
+            AudioManager.instance.PlayInsertCoinSFX();
             UIManager.instance.InsertOneCoin();
         }
 
@@ -290,6 +291,7 @@ public class MainLogicManager : MonoBehaviour
 
     public void StartLevelAfterDelay(float delay)
     {
+        AudioManager.instance.PlayTitleMusic();
         GameManager.instance.ShowLevelStartScreen();
         AudioManager.instance.PlayStartLevelSFX();
         StartCoroutine(WaitAndStartLevel(delay));
@@ -317,6 +319,7 @@ public class MainLogicManager : MonoBehaviour
 
     public void GameOver(bool successfullyFinishedTheGame, int score)
     {
+        AudioManager.instance.PlayTitleMusic();
         currentScreen = SCREEN.GAME_OVER;
         UIManager.instance.ShowGameOverScreen(successfullyFinishedTheGame, score);
     }

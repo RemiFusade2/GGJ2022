@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public string scrollingStaticRGBVectorName;
     [Space]
     public float timeBonusLifespan;
+    public float timeBonusRequiredTime;
 
     [Header("References")]
     public Material screenMaterial;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
 
     public CYCLETYPE currentCycleType;
     private float cycleCurrentTimer;
+    private float currentGameTime;
 
     private PlayerController myPlayer;
 
@@ -74,6 +76,9 @@ public class GameManager : MonoBehaviour
         if (gameIsRunning)
         {
             cycleCurrentTimer -= Time.fixedDeltaTime;
+            currentGameTime += Time.fixedDeltaTime;
+
+            int sumOfAllCollectibleItems = GameObject.FindGameObjectsWithTag("Collectible").Length + GameObject.FindGameObjectsWithTag("Monster").Length;
 
             UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
 
@@ -125,8 +130,6 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        SpawnTimeBonus();
-
         UIManager.instance.HideAllPanels();
         UIManager.instance.ShowTopInfoPanel();
         SwitchToDayTime();
@@ -141,7 +144,7 @@ public class GameManager : MonoBehaviour
         Vector3 exitPosition = LevelManager.instance.GetExitPosition();
 
         Transform parent = LevelManager.instance.currentLevelGameObject.transform;
-        currentTimeBonus = Instantiate(timeBonusPrefab, exitPosition - 0.3f * Vector3.right, timeBonusPrefab.transform.rotation, parent);
+        currentTimeBonus = Instantiate(timeBonusPrefab, exitPosition - 1.0f * Vector3.right, timeBonusPrefab.transform.rotation, parent);
         currentTimeBonus.GetComponent<DayNightCycle>().currentCycle = CYCLETYPE.DAY;
         currentTimeBonus.GetComponent<LifetimeBehaviour>().SetLifespan(timeBonusLifespan);
     }
