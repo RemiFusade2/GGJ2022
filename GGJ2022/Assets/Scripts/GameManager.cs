@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
         myPlayer.StopPlayer();
         gameIsRunning = false;
 
-        Invoke("FinishLevelForReal", 1.0f);
+        Invoke("FinishLevelForReal", 0.6f);
     }
 
     private void FinishLevelForReal()
@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviour
     {
         myPlayer.StopPlayer();
         gameIsRunning = false;
-        Invoke("LoseLifeForReal", 1.0f);
+        Invoke("LoseLifeForReal", 0.6f);
     }
 
     private void LoseLifeForReal()
