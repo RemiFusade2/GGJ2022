@@ -21,6 +21,7 @@ public class MainLogicManager : MonoBehaviour
     public string startInputName;
     public string exitInputName;
     public string insertCoinInputName;
+    public string nextLevelInputName;
     private Player rewiredPlayer;
     
     [Header("Runtime")]
@@ -41,6 +42,14 @@ public class MainLogicManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (rewiredPlayer.GetButtonDown(nextLevelInputName))
+        {
+            currentScreen = SCREEN.LEVEL;
+            //GameManager.instance.ResetGame();
+            LevelManager.instance.LoadNextLevel();
+            StartLevelAfterDelay(2.0f);
+        }
+
         if (rewiredPlayer.GetButtonDown(exitInputName))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
