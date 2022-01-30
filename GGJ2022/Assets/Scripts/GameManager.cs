@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     private PlayerController myPlayer;
 
-    private GameObject currentTimeBonus;
+    private bool currentTimeBonusWasSpawned;
 
 
 
@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour
             cycleCurrentTimer -= Time.fixedDeltaTime;
             currentGameTime += Time.fixedDeltaTime;
 
-            int sumOfAllCollectibleItems = GameObject.FindGameObjectsWithTag("Collectible").Length + GameObject.FindGameObjectsWithTag("Monster").Length;
 
             UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
 
@@ -107,6 +106,8 @@ public class GameManager : MonoBehaviour
         currentLevelScore = 0;
         keys = 0;
         lives = 2;
+        currentGameTime = 0;
+        UIManager.instance.UpdateKeysValueText(keys);
         UIManager.instance.UpdateScoreValueText(score);
         UIManager.instance.UpdateLivesValueText(lives);
     }
@@ -137,6 +138,24 @@ public class GameManager : MonoBehaviour
 
         gameIsRunning = true;
         currentLevelScore = 0;
+        currentGameTime = 0;
+    }
+
+    public void TrySpawnTimeBonus()
+    {
+        Invoke("InvokeTrySpawnTimeBonus", 0.1f);
+    }
+
+    private void InvokeTrySpawnTimeBonus()
+    {
+        int sumOfAllCollectibleItems = GameObject.FindGameObjectsWithTag("Collectible").Length + GameObject.FindGameObjectsWithTag("Monster").Length;
+
+        Debug.Log("TrySpawnTimeBonus. " + sumOfAllCollectibleItems + " ; " + currentGameTime);
+        if (sumOfAllCollectibleItems == 0 && !currentTimeBonusWasSpawned && currentGameTime <= timeBonusRequiredTime)
+        {
+            SpawnTimeBonus();
+            currentTimeBonusWasSpawned = true;
+        }
     }
 
     private void SpawnTimeBonus()
@@ -144,7 +163,7 @@ public class GameManager : MonoBehaviour
         Vector3 exitPosition = LevelManager.instance.GetExitPosition();
 
         Transform parent = LevelManager.instance.currentLevelGameObject.transform;
-        currentTimeBonus = Instantiate(timeBonusPrefab, exitPosition - 1.0f * Vector3.right, timeBonusPrefab.transform.rotation, parent);
+        GameObject currentTimeBonus = Instantiate(timeBonusPrefab, exitPosition - 1.0f * Vector3.right, timeBonusPrefab.transform.rotation, parent);
         currentTimeBonus.GetComponent<DayNightCycle>().currentCycle = CYCLETYPE.DAY;
         currentTimeBonus.GetComponent<LifetimeBehaviour>().SetLifespan(timeBonusLifespan);
     }

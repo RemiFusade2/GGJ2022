@@ -46,8 +46,10 @@ public class DayNightCycle : MonoBehaviour
             remainingLife = this.GetComponent<LifetimeBehaviour>().GetLifespan();
         }
 
+        Debug.Log("dualPrefab : " + dualPrefab.ToString());
+
         StartCoroutine(DestroyItselfAfterDelay(delay));
-        InstantiateManager.instance.SpawnObjectAfterDelay(dualPrefab, this.transform.position, dualPrefab.transform.rotation, this.transform.parent, delay + 0.01f, currentCycle, facingDirection, remainingLife);
+        InstantiateManager.instance.SpawnObjectAfterDelay(dualPrefab, this.transform.position, dualPrefab.transform.rotation, this.transform.parent, delay + 0.05f, currentCycle, facingDirection, remainingLife);
     }
 
     public void SwitchToDay()

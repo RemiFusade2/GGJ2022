@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4297661825051913397}
   - component: {fileID: 5418540188478662062}
   m_Layer: 0
-  m_Name: Diamond
+  m_Name: Diamond 2
   m_TagString: Diamond
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   cycleMode: 1
   currentCycle: 0
   facingDirection: 3
-  dualPrefab: {fileID: 2325351559591162125, guid: 9e1e974a424f2974a90a652e9a750b0b, type: 3}
+  dualPrefab: {fileID: 2325351559591162125, guid: ce9102ac4b1195b4982db35ff334a3f8, type: 3}
   dayGameObject: {fileID: 0}
   nightGameObject: {fileID: 0}
 --- !u!61 &4297661825051913397
