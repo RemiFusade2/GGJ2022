@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6591550035465372921}
   - component: {fileID: 6591550035465372923}
   m_Layer: 0
-  m_Name: Score50
+  m_Name: Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,3 +99,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifetime: 1
   moveUpDistanceInPixels: 15
+  spriteRenderer: {fileID: 6591550035465372921}
+  score1Sprite: {fileID: 21300000, guid: 7d42930d3cf4e894a9b93075e9f035a4, type: 3}
+  scoreMinus1Sprite: {fileID: 21300000, guid: cac75ae4eb5d29d40a276087de1e3eb9, type: 3}
+  score50Sprite: {fileID: 21300000, guid: 7404e8c37a628004ab9725ab6bf8d34a, type: 3}
+  scoreMinus50Sprite: {fileID: 21300000, guid: 8d59f274a0f650243877493d03196b8f, type: 3}
+  score100Sprite: {fileID: 21300000, guid: c5435aa6746f90149a09090e315aed48, type: 3}
+  score500Sprite: {fileID: 21300000, guid: be6a60503ec42004c85cba39af3ae543, type: 3}
+  score1000Sprite: {fileID: 21300000, guid: 746cb76c169a42041880827b367820fb, type: 3}

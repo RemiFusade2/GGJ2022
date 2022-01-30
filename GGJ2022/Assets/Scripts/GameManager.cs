@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public Material screenMaterial;
 
     [Header("Prefabs")]
-    public GameObject score50Prefab;
+    public GameObject scorePrefab;
     [Space]
     public GameObject timeBonusPrefab;
 
@@ -111,7 +111,8 @@ public class GameManager : MonoBehaviour
         score += scoreAdd;
         currentLevelScore += scoreAdd;
         UIManager.instance.UpdateScoreValueText(score);
-        GameObject scoreObj = Instantiate(score50Prefab, itemPosition, score50Prefab.transform.rotation);
+        GameObject scoreObj = Instantiate(scorePrefab, itemPosition, scorePrefab.transform.rotation);
+        scoreObj.GetComponent<ScoreBehaviour>().Initialize(new Vector2(itemPosition.x, itemPosition.y), scoreAdd);
     }
 
     public void ShowLevelStartScreen()

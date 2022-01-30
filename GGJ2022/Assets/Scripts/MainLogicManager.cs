@@ -46,15 +46,24 @@ public class MainLogicManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
+        if (rewiredPlayer.GetButtonDown(insertCoinInputName))
+        {
+            UIManager.instance.InsertOneCoin();
+        }
+
         if (rewiredPlayer.GetButtonDown(startInputName))
         {
             switch(currentScreen)
             {
                 case SCREEN.TITLE:
-                    currentScreen = SCREEN.LEVEL;
-                    GameManager.instance.ResetGame();
-                    LevelManager.instance.LoadFirstLevel();
-                    GameManager.instance.ShowLevelStartScreen();
+                    if (UIManager.instance.IsThereEnoughCoinToPlayTheGame())
+                    {
+                        UIManager.instance.UseOneCoin();
+                        currentScreen = SCREEN.LEVEL;
+                        GameManager.instance.ResetGame();
+                        LevelManager.instance.LoadFirstLevel();
+                        GameManager.instance.ShowLevelStartScreen();
+                    }
                     break;
                 case SCREEN.LEVEL:
                     if (!GameManager.instance.gameIsRunning)

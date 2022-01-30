@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [Header("References - title screen")]
     public GameObject titlePanel;
     public Text titleText;
+    public Text insertCoinText;
 
     [Header("References - game over panel")]
     public GameObject gameOverPanel;
@@ -34,9 +35,78 @@ public class UIManager : MonoBehaviour
     [Header("Settings")]
     public List<string> titlePool;
 
+    private bool preventInsertCoinBlink;
+
+    private int coins;
+
     private void Awake()
     {
         instance = this;
+        coins = 0;
+        preventInsertCoinBlink = false;
+    }
+
+    private void Start()
+    {
+        Invoke("HideInsertCoinText", 1.0f);
+    }
+
+    private void ShowInsertCoinText()
+    {
+        insertCoinText.enabled = true;
+        Invoke("HideInsertCoinText", 1.0f);
+    }
+    private void HideInsertCoinText()
+    {
+        if (!preventInsertCoinBlink)
+        {
+            insertCoinText.enabled = false;
+        }
+        Invoke("ShowInsertCoinText", 0.5f);
+    }
+
+    private void StopPreventInsertCoinBlink()
+    {
+        preventInsertCoinBlink = false;
+    }
+
+    public bool IsThereEnoughCoinToPlayTheGame()
+    {
+        return coins > 0;
+    }
+
+    private void UpdateInsertCoinText()
+    {
+        if (coins == 0)
+        {
+            insertCoinText.text = "PLEASE INSERT COIN";
+        }
+        else if (coins == 1)
+        {
+            insertCoinText.text = "1 COIN";
+        }
+        else
+        {
+            insertCoinText.text = coins.ToString() + " COINS";
+        }
+    }
+
+    public void UseOneCoin()
+    {
+        coins--;
+        if (coins < 0)
+            coins = 0;
+        UpdateInsertCoinText();
+    }
+
+    public void InsertOneCoin()
+    {
+        coins++;
+        UpdateInsertCoinText();
+
+        preventInsertCoinBlink = true;
+        insertCoinText.enabled = true;
+        Invoke("StopPreventInsertCoinBlink", 5f);
     }
 
     public void UpdateDayNightSliderValue(float remaningTime)

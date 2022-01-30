@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.collider.CompareTag("Coal"))
         {
             AudioManager.instance.PlayGrabCoalSFX();
-            GameManager.instance.IncreaseScore(-1, collision.gameObject.transform.position);
+            GameManager.instance.IncreaseScore(-50, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
         }
         else if (collision.collider.CompareTag("Key"))
