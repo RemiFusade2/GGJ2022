@@ -159,37 +159,37 @@ public class MainLogicManager : MonoBehaviour
 
         if (currentScreen == SCREEN.TITLE)
         {
-            if (verticalInput > 0.8f && !upRegistered)
+            if (verticalInput > 0.2f && !upRegistered)
             {
                 upRegistered = true;
                 downRegistered = false;
                 RegisterInputForKonamiCode(DIRECTION.UP, false, false);
             }
-            if (verticalInput < -0.8f && !downRegistered)
+            if (verticalInput < -0.2f && !downRegistered)
             {
                 downRegistered = true;
                 upRegistered = false;
                 RegisterInputForKonamiCode(DIRECTION.DOWN, false, false);
             }
-            else if (verticalInput >= -0.5f && verticalInput <= 0.5f)
+            else if (verticalInput >= -0.1f && verticalInput <= 0.1f)
             {
                 upRegistered = false;
                 downRegistered = false;
             }
 
-            if (horizontalInput > 0.8f && !rightRegistered)
+            if (horizontalInput > 0.2f && !rightRegistered)
             {
                 rightRegistered = true;
                 leftRegistered = false;
                 RegisterInputForKonamiCode(DIRECTION.RIGHT, false, false);
             }
-            if (horizontalInput < -0.8f && !leftRegistered)
+            if (horizontalInput < -0.2f && !leftRegistered)
             {
                 leftRegistered = true;
                 rightRegistered = false;
                 RegisterInputForKonamiCode(DIRECTION.LEFT, false, false);
             }
-            else if (horizontalInput >= -0.5f && horizontalInput <= 0.5f)
+            else if (horizontalInput >= -0.1f && horizontalInput <= 0.1f)
             {
                 leftRegistered = false;
                 rightRegistered = false;

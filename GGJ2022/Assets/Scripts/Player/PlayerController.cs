@@ -102,6 +102,8 @@ public class PlayerController : MonoBehaviour
             AudioManager.instance.PlayGrabCollectibleSFX();
             GameManager.instance.IncreaseScore(100, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
+
+            GameManager.instance.TrySpawnTimeBonus();
         }
         else if (collision.collider.CompareTag("Diamond"))
         {

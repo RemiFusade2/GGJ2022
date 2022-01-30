@@ -4659,8 +4659,8 @@ MonoBehaviour:
   imageDistorsionFloatName: _DistortionStrength
   timeOffsetFloatName: _Time_Offset
   scrollingStaticRGBVectorName: _Scrolling_Static_RGB
-  timeBonusLifespan: 20
-  timeBonusRequiredTime: 0
+  timeBonusLifespan: 200000
+  timeBonusRequiredTime: 30
   screenMaterial: {fileID: 2100000, guid: 48631f166b991bf48b837f2e8f419cd5, type: 2}
   scorePrefab: {fileID: 6591550035465372920, guid: e24afbc157efe314bbf4cdcaef14bb7a, type: 3}
   timeBonusPrefab: {fileID: 2325351559591162125, guid: ce9102ac4b1195b4982db35ff334a3f8, type: 3}
@@ -8109,6 +8109,8 @@ MonoBehaviour:
   - THE GOOD MOLE
   - MOLTRIX
   - GAME TITLE
+  - GNOME HUNT
+  - MOLE HUNT
 --- !u!4 &1859384169
 Transform:
   m_ObjectHideFlags: 0
