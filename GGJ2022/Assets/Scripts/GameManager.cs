@@ -107,6 +107,7 @@ public class GameManager : MonoBehaviour
         keys = 0;
         lives = 2;
         currentGameTime = 0;
+        currentTimeBonusWasSpawned = false;
         UIManager.instance.UpdateKeysValueText(keys);
         UIManager.instance.UpdateScoreValueText(score);
         UIManager.instance.UpdateLivesValueText(lives);
@@ -139,6 +140,7 @@ public class GameManager : MonoBehaviour
         gameIsRunning = true;
         currentLevelScore = 0;
         currentGameTime = 0;
+        currentTimeBonusWasSpawned = false;
     }
 
     public void TrySpawnTimeBonus()
@@ -174,6 +176,7 @@ public class GameManager : MonoBehaviour
         keys = 0;
         currentLevelScore = 0;
         gameIsRunning = false;
+        currentTimeBonusWasSpawned = false;
         UIManager.instance.UpdateKeysValueText(keys);
         bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
         if (nextLevelLoaded)

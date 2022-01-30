@@ -80,7 +80,7 @@ public class LeaderboardManager : MonoBehaviour
         ScoreEntriesData defaultEntries = new ScoreEntriesData();
         defaultEntries.data = new List<ScoreEntryData>();
         defaultEntries.data.Add(new ScoreEntryData() { name = "REM", score = 10000 });
-        defaultEntries.data.Add(new ScoreEntryData() { name = "JOH", score = 20000 });
+        defaultEntries.data.Add(new ScoreEntryData() { name = "JEJ", score = 20000 });
         defaultEntries.data.Add(new ScoreEntryData() { name = "AND", score = 15000 });
 
         allScoreEntriesData = defaultEntries;

@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 840359513383327700}
   - component: {fileID: 1010594533}
   - component: {fileID: 1173360063716805229}
+  - component: {fileID: 2843123019065862092}
   m_Layer: 0
   m_Name: Collectible
   m_TagString: Collectible
@@ -110,7 +111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 840359513383327701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5, y: 0, z: 0}
+  m_LocalPosition: {x: -3.5, y: 0.151, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -162,3 +163,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
+--- !u!111 &2843123019065862092
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840359513383327701}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 873ed97c9dde4a04fa11a6ee699b131b, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 873ed97c9dde4a04fa11a6ee699b131b, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1299986594444688812}
   - component: {fileID: 1847589024836622493}
   - component: {fileID: 714780067754418197}
+  - component: {fileID: 4751384050436221872}
   m_Layer: 0
   m_Name: Key
   m_TagString: Key
@@ -78,6 +79,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7785411, y: 0.7815175}
   m_EdgeRadius: 0
+--- !u!111 &4751384050436221872
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299986594444688813}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 873ed97c9dde4a04fa11a6ee699b131b, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 873ed97c9dde4a04fa11a6ee699b131b, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1299986596357646147
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +106,7 @@ GameObject:
   - component: {fileID: 1299986596357646146}
   - component: {fileID: 1299986596357646145}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
