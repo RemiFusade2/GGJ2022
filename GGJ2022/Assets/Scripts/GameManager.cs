@@ -12,7 +12,7 @@ public enum CYCLETYPE
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    
+
 
     [Header("Settings")]
     public float dayDuration;
@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     public Material screenMaterial;
+    public Animator animator;
 
     [Header("Prefabs")]
     public GameObject scorePrefab;
@@ -200,6 +201,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseLife()
     {
+        animator.SetBool("IsDead", true);
         myPlayer.StopPlayer();
         gameIsRunning = false;
         Invoke("LoseLifeForReal", 0.6f);
@@ -210,11 +212,13 @@ public class GameManager : MonoBehaviour
         lives--;
         if (lives < 0)
         {
+            animator.SetBool("IsDead", false);
             MainLogicManager.instance.GameOver(false, score);
             LeaderboardManager.instance.UpdateScoreEntriesDisplay(score);
         }
         else
         {
+            animator.SetBool("IsDead", false);
             score -= currentLevelScore;
             currentLevelScore = 0;
             keys = 0;

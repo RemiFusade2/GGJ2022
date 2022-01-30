@@ -4662,6 +4662,7 @@ MonoBehaviour:
   timeBonusLifespan: 200000
   timeBonusRequiredTime: 30
   screenMaterial: {fileID: 2100000, guid: 48631f166b991bf48b837f2e8f419cd5, type: 2}
+  animator: {fileID: 1833524392}
   scorePrefab: {fileID: 6591550035465372920, guid: e24afbc157efe314bbf4cdcaef14bb7a, type: 3}
   timeBonusPrefab: {fileID: 2325351559591162125, guid: ce9102ac4b1195b4982db35ff334a3f8, type: 3}
   score: 0
@@ -7736,6 +7737,11 @@ CanvasRenderer:
 --- !u!4 &1833524390 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6692788860729187348, guid: 7ad255ab158c163469807992d129aae7, type: 3}
+  m_PrefabInstance: {fileID: 6692788860138356914}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1833524392 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8919733976992476283, guid: 7ad255ab158c163469807992d129aae7, type: 3}
   m_PrefabInstance: {fileID: 6692788860138356914}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1838843980
