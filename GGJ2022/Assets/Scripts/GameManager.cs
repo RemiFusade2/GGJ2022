@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
         Vector3 exitPosition = LevelManager.instance.GetExitPosition();
 
         Transform parent = LevelManager.instance.currentLevelGameObject.transform;
-        GameObject currentTimeBonus = Instantiate(timeBonusPrefab, exitPosition - 1.0f * Vector3.right, timeBonusPrefab.transform.rotation, parent);
+        GameObject currentTimeBonus = Instantiate(timeBonusPrefab, exitPosition, timeBonusPrefab.transform.rotation, parent);
         currentTimeBonus.GetComponent<DayNightCycle>().currentCycle = CYCLETYPE.DAY;
         currentTimeBonus.GetComponent<LifetimeBehaviour>().SetLifespan(timeBonusLifespan);
     }
@@ -173,9 +173,15 @@ public class GameManager : MonoBehaviour
     public void FinishLevel()
     {
         myPlayer.StopPlayer();
+        gameIsRunning = false;
+
+        Invoke("FinishLevelForReal", 0.6f);
+    }
+
+    private void FinishLevelForReal()
+    {
         keys = 0;
         currentLevelScore = 0;
-        gameIsRunning = false;
         currentTimeBonusWasSpawned = false;
         UIManager.instance.UpdateKeysValueText(keys);
         bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
@@ -194,15 +200,16 @@ public class GameManager : MonoBehaviour
 
     public void LoseLife()
     {
-        if (myPlayer == null)
-        {
-            Debug.LogError("you're kidding me");
-        }
         myPlayer.StopPlayer();
+        gameIsRunning = false;
+        Invoke("LoseLifeForReal", 0.6f);
+    }
+
+    private void LoseLifeForReal()
+    {
         lives--;
         if (lives < 0)
         {
-            gameIsRunning = false;
             MainLogicManager.instance.GameOver(false, score);
             LeaderboardManager.instance.UpdateScoreEntriesDisplay(score);
         }
