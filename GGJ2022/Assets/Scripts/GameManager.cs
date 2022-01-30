@@ -173,7 +173,7 @@ public class GameManager : MonoBehaviour
 
     public void FinishLevel()
     {
-        myPlayer.StopPlayer();
+        myPlayer.MakePlayerMoveRight();
         gameIsRunning = false;
 
         Invoke("FinishLevelForReal", 0.6f);

@@ -167,6 +167,11 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("IsDay", isDay);
     }
 
+    public void MakePlayerMoveRight()
+    {
+        playerRigidbody.velocity = Vector2.right * playerData.moveSpeed;
+    }
+
     public void StopPlayer()
     {
         playerRigidbody.velocity = Vector2.zero;
