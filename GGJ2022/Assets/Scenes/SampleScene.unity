@@ -1131,18 +1131,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backgroundMusicAudioSource: {fileID: 1838843981}
   soundEffectAudioSource: {fileID: 212467973}
-  titleScreenMusic: {fileID: 0}
-  inGameMusic: {fileID: 0}
-  insertCoinSFX: {fileID: 0}
+  titleScreenMusic: {fileID: 8300000, guid: 975bdc6bce40ddb4da1bdf1751e86741, type: 3}
+  inGameMusic: {fileID: 8300000, guid: e3a5fc783d1f3ec4f90b1d012f65af12, type: 3}
+  insertCoinSFX: {fileID: 8300000, guid: 8907a8439a5b8824b8059c33c73cf43e, type: 3}
   startLevelSFX: {fileID: 0}
-  grabCollectibleSFX: {fileID: 0}
-  grabKeySFX: {fileID: 0}
-  grabDiamondSFX: {fileID: 0}
-  grabCoalSFX: {fileID: 0}
-  openDoorSFX: {fileID: 0}
-  loseLifeSFX: {fileID: 0}
+  grabCollectibleSFX: {fileID: 8300000, guid: 8e83976d8e038894598b0918332adccc, type: 3}
+  grabKeySFX: {fileID: 8300000, guid: 8e83976d8e038894598b0918332adccc, type: 3}
+  grabDiamondSFX: {fileID: 8300000, guid: 8e83976d8e038894598b0918332adccc, type: 3}
+  grabCoalSFX: {fileID: 8300000, guid: ff20d1bf245496a49b0f15ba7322cdc2, type: 3}
+  openDoorSFX: {fileID: 8300000, guid: f072a6511f622ba4ab6c90041089ff71, type: 3}
+  loseLifeSFX: {fileID: 8300000, guid: 091f1be8a94332d4eac0761aba5528cb, type: 3}
   finishLevelSFX: {fileID: 0}
-  dayNightSwitchSFX: {fileID: 0}
+  dayNightSwitchSFX: {fileID: 8300000, guid: 32f48216728c8424f87c5138d67f4244, type: 3}
 --- !u!1 &311489896
 GameObject:
   m_ObjectHideFlags: 0
@@ -7760,7 +7760,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
