@@ -151,17 +151,18 @@ public class GameManager : MonoBehaviour
         myPlayer.StopPlayer();
         keys = 0;
         currentLevelScore = 0;
+        gameIsRunning = false;
         UIManager.instance.UpdateKeysValueText(keys);
         bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
         if (nextLevelLoaded)
         {
             AudioManager.instance.PlayFinishLevelSFX();
-
             MainLogicManager.instance.StartLevelAfterDelay(2.0f);
             //ShowLevelStartScreen();
         }
         else
         {
+            LeaderboardManager.instance.UpdateScoreEntriesDisplay(score);
             MainLogicManager.instance.GameOver(true, score);
         }
     }
@@ -178,11 +179,14 @@ public class GameManager : MonoBehaviour
         {
             gameIsRunning = false;
             MainLogicManager.instance.GameOver(false, score);
+            LeaderboardManager.instance.UpdateScoreEntriesDisplay(score);
         }
         else
         {
             score -= currentLevelScore;
             currentLevelScore = 0;
+            keys = 0;
+            UIManager.instance.UpdateKeysValueText(keys);
             UIManager.instance.UpdateScoreValueText(score);
             UIManager.instance.UpdateLivesValueText(lives);
             LevelManager.instance.ReloadLevel();

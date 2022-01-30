@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
 
     [Header("References - leaderboard")]
     public GameObject leaderboardPanel;
+    public List<ScoreEntry> allScoreEntriesDisplay;
+    private ScoreEntry activeScoreEntry;
 
     [Header("References - title screen")]
     public GameObject titlePanel;
@@ -42,6 +44,42 @@ public class UIManager : MonoBehaviour
     private bool preventInsertCoinBlink;
 
     private int coins;
+
+    public void DisplayScoreEntries(List<ScoreEntryData> scoreEntriesData, int activeRank)
+    {
+        Debug.Log("DisplayScoreEntries, active rank = " + activeRank);
+
+        activeScoreEntry = null;
+        for (int rank = 1; rank <= scoreEntriesData.Count; rank++)
+        {
+            if (rank-1 < allScoreEntriesDisplay.Count)
+            {
+                ScoreEntryData data = scoreEntriesData[rank - 1];
+                Debug.Log("rank " + rank + " = " + data.name + " ; " + data.score);
+                allScoreEntriesDisplay[rank - 1].Initialize(rank, data.score, data.name, (rank == activeRank));
+
+                if (rank == activeRank)
+                {
+                    activeScoreEntry = allScoreEntriesDisplay[rank - 1];
+                }
+            }
+        }
+    }
+
+    public void ActiveScoreEntrySwitchLetter(int delta)
+    {
+        if (activeScoreEntry != null)
+        {
+            activeScoreEntry.SwitchLetter(delta);
+        }
+    }
+    public void ActiveScoreEntryConfirmLetter()
+    {
+        if (activeScoreEntry != null)
+        {
+            activeScoreEntry.ConfirmLetter();
+        }
+    }
 
     private void Awake()
     {
