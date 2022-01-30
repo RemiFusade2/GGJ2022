@@ -39,12 +39,14 @@ public class AudioManager : MonoBehaviour
     {
         backgroundMusicAudioSource.Stop();
         backgroundMusicAudioSource.clip = inGameMusic;
+        backgroundMusicAudioSource.volume = .8f;
         backgroundMusicAudioSource.Play();
     }
     public void PlayTitleMusic()
     {
         backgroundMusicAudioSource.Stop();
         backgroundMusicAudioSource.clip = titleScreenMusic;
+        backgroundMusicAudioSource.volume = 0.2f;
         backgroundMusicAudioSource.Play();
     }
 
