@@ -51,6 +51,7 @@ MonoBehaviour:
   - {fileID: 2293629850242004190, guid: 242cc19094983d344907bad702c37aa2, type: 3}
   - {fileID: 2293629850242004190, guid: 791d4ecc1a7cf02408f580f49917a883, type: 3}
   - {fileID: 2293629850242004190, guid: 9eded251a9918e548a89f8df895e1eda, type: 3}
+  - {fileID: 2293629850242004190, guid: de8acf559f45cf94eb9a48fad4582491, type: 3}
   player: {fileID: 0}
   currentLevelGameObject: {fileID: 0}
   currentLevelIndex: 0
