@@ -84,25 +84,30 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.CompareTag("Monster"))
         {
+            AudioManager.instance.PlayLoseLifeSFX();
             GameManager.instance.LoseLife();
         }
         else if (collision.collider.CompareTag("Collectible"))
         {
+            AudioManager.instance.PlayGrabCollectibleSFX();
             GameManager.instance.IncreaseScore(100, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
         }
         else if (collision.collider.CompareTag("Diamond"))
         {
+            AudioManager.instance.PlayGrabDiamondSFX();
             GameManager.instance.IncreaseScore(1000, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
         }
         else if (collision.collider.CompareTag("Coal"))
         {
+            AudioManager.instance.PlayGrabCoalSFX();
             GameManager.instance.IncreaseScore(-1, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
         }
         else if (collision.collider.CompareTag("Key"))
         {
+            AudioManager.instance.PlayGrabKeySFX();
             GameManager.instance.AddKey();
             GameManager.instance.IncreaseScore(50, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
@@ -112,6 +117,7 @@ public class PlayerController : MonoBehaviour
             if (GameManager.instance.UseKey())
             {
                 // we open door
+                AudioManager.instance.PlayOpenDoorSFX();
                 GameManager.instance.IncreaseScore(500, collision.gameObject.transform.position);
                 Destroy(collision.collider.gameObject);
             }

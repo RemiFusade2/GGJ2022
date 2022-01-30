@@ -59,6 +59,7 @@ public class MainLogicManager : MonoBehaviour
                 case SCREEN.LEVEL:
                     if (!GameManager.instance.gameIsRunning)
                     {
+                        AudioManager.instance.PlayInGameMusic();
                         GameManager.instance.StartGame();
                     }
                     break;
@@ -76,6 +77,7 @@ public class MainLogicManager : MonoBehaviour
 
     public void DisplayTitleScreen()
     {
+        AudioManager.instance.PlayTitleMusic();
         currentScreen = SCREEN.TITLE;
         UIManager.instance.ShowTitleScreen();
     }

@@ -154,6 +154,7 @@ public class GameManager : MonoBehaviour
         bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
         if (nextLevelLoaded)
         {
+            AudioManager.instance.PlayFinishLevelSFX();
             ShowLevelStartScreen();
         }
         else
@@ -234,6 +235,7 @@ public class GameManager : MonoBehaviour
         if (!glitchEffectIsRunning)
         {
             glitchEffectIsRunning = true;
+            AudioManager.instance.PlayDayNightSwitchSFX();
 
             screenMaterial.SetFloat(scrollingStaticFloatName, 0.1f);
             screenMaterial.SetFloat(imageDistorsionFloatName, 0.05f);
