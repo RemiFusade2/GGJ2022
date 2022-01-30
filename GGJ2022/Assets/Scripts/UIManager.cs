@@ -22,6 +22,10 @@ public class UIManager : MonoBehaviour
     public string congratulationsStr = "CONGRATULATIONS";
     public Text gameOverScoreTxt;
 
+    [Header("References - credits panel")]
+    public GameObject creditsPanel;
+    public Text thankYouText;
+
     [Header("References - in game")]
     public GameObject startLevelPanel;
     public GameObject topInfoPanel;
@@ -48,7 +52,8 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        Invoke("HideInsertCoinText", 1.0f);
+        ShowInsertCoinText();
+        ShowThankYouText();
     }
 
     private void ShowInsertCoinText()
@@ -134,6 +139,24 @@ public class UIManager : MonoBehaviour
         leaderboardPanel.SetActive(false);
         startLevelPanel.SetActive(false);
         topInfoPanel.SetActive(false);
+        creditsPanel.SetActive(false);
+    }
+
+    private void ShowThankYouText()
+    {
+        thankYouText.enabled = true;
+        Invoke("HideThankYouText", 1.0f);
+    }
+    private void HideThankYouText()
+    {
+        thankYouText.enabled = false;
+        Invoke("ShowThankYouText", 0.5f);
+    }
+
+    public void ShowCreditsPanel()
+    {
+        HideAllPanels();
+        creditsPanel.SetActive(true);
     }
 
     public void ShowTopInfoPanel()
