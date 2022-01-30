@@ -62,15 +62,10 @@ public class MainLogicManager : MonoBehaviour
                         currentScreen = SCREEN.LEVEL;
                         GameManager.instance.ResetGame();
                         LevelManager.instance.LoadFirstLevel();
-                        GameManager.instance.ShowLevelStartScreen();
+                        StartLevelAfterDelay(2.0f);
                     }
                     break;
                 case SCREEN.LEVEL:
-                    if (!GameManager.instance.gameIsRunning)
-                    {
-                        AudioManager.instance.PlayInGameMusic();
-                        GameManager.instance.StartGame();
-                    }
                     break;
                 case SCREEN.GAME_OVER:
                     DisplayLeaderboard();
@@ -82,6 +77,20 @@ public class MainLogicManager : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void StartLevelAfterDelay(float delay)
+    {
+        GameManager.instance.ShowLevelStartScreen();
+        AudioManager.instance.PlayStartLevelSFX();
+        StartCoroutine(WaitAndStartLevel(delay));
+    }
+
+    private IEnumerator WaitAndStartLevel(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        AudioManager.instance.PlayInGameMusic();
+        GameManager.instance.StartGame();
     }
 
     public void DisplayTitleScreen()

@@ -119,8 +119,8 @@ public class GameManager : MonoBehaviour
     {
         gameIsRunning = false;
         SwitchToDayTime();
-        UIManager.instance.ShowStartLevelPanel(LevelManager.instance.currentLevelIndex);
         UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
+        UIManager.instance.ShowStartLevelPanel(LevelManager.instance.currentLevelIndex);
     }
 
     public void StartGame()
@@ -156,7 +156,9 @@ public class GameManager : MonoBehaviour
         if (nextLevelLoaded)
         {
             AudioManager.instance.PlayFinishLevelSFX();
-            ShowLevelStartScreen();
+
+            MainLogicManager.instance.StartLevelAfterDelay(2.0f);
+            //ShowLevelStartScreen();
         }
         else
         {
@@ -184,7 +186,8 @@ public class GameManager : MonoBehaviour
             UIManager.instance.UpdateScoreValueText(score);
             UIManager.instance.UpdateLivesValueText(lives);
             LevelManager.instance.ReloadLevel();
-            ShowLevelStartScreen();
+            MainLogicManager.instance.StartLevelAfterDelay(2.0f);
+            //ShowLevelStartScreen();
         }
     }
 

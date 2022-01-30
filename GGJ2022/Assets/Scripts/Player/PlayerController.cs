@@ -26,11 +26,14 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D playerRigidbody;
 
+    private bool preventLosingMoreLives;
+
     // Start is called before the first frame update
     void Start()
     {
         rewiredPlayer = ReInput.players.GetPlayer(playerID);
         playerRigidbody = GetComponent<Rigidbody2D>();
+        preventLosingMoreLives = false;
     }
 
     // Update is called once per frame
@@ -67,6 +70,11 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    private void DontPreventLosingLives()
+    {
+        preventLosingMoreLives = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Collectible"))
@@ -82,8 +90,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Monster"))
+        if (collision.collider.CompareTag("Monster") && !preventLosingMoreLives)
         {
+            preventLosingMoreLives = true;
+            Invoke("DontPreventLosingLives", 1.0f);
             AudioManager.instance.PlayLoseLifeSFX();
             GameManager.instance.LoseLife();
         }
