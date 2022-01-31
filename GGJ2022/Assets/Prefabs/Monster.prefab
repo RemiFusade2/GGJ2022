@@ -134,7 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98d3dbdd14a8b2f478fe723734bfa975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveData: {fileID: 11400000, guid: a37ee77c980de9540aa3f06588a9042c, type: 2}
+  moveDataGame1: {fileID: 11400000, guid: a37ee77c980de9540aa3f06588a9042c, type: 2}
+  moveDataGame2: {fileID: 11400000, guid: 22198b07af21b1b48bebb385307ad51e, type: 2}
   animator: {fileID: 6375219886706718376}
 --- !u!50 &8297916002524559986
 Rigidbody2D:

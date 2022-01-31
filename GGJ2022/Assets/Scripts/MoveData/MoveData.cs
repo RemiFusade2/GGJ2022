@@ -4,6 +4,8 @@ using UnityEngine;
 
 public enum MOVEMENT_PATTERN
 {
+    ALWAYS_TURN_RIGHT,
+    ALWAYS_TURN_LEFT,
     BACK_AND_FORTH,
     NOT_MOVING
 }

@@ -103,7 +103,13 @@ public class PlayerController : MonoBehaviour
             GameManager.instance.IncreaseScore(100, collision.gameObject.transform.position);
             Destroy(collision.collider.gameObject);
 
-            GameManager.instance.TrySpawnTimeBonus();
+            GameManager.instance.TrySpawnCompletionBonus();
+        }
+        else if (collision.collider.CompareTag("Extra Life"))
+        {
+            AudioManager.instance.PlayGrabExtraLifeSFX();
+            GameManager.instance.AddExtraLife();
+            Destroy(collision.collider.gameObject);
         }
         else if (collision.collider.CompareTag("Diamond"))
         {
@@ -137,6 +143,11 @@ public class PlayerController : MonoBehaviour
             {
                 // we can't open the door, we do nothing
             }
+        }
+        else if (collision.collider.CompareTag("Exit"))
+        {
+            collision.collider.isTrigger = true;
+            GameManager.instance.FinishLevel();
         }
     }
 

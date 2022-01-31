@@ -93,9 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2325351559591162124}
-  - component: {fileID: 3165116199864226877}
   - component: {fileID: 4297661825051913397}
-  - component: {fileID: 5418540188478662062}
   - component: {fileID: 1130171819724536816}
   m_Layer: 0
   m_Name: Diamond
@@ -120,24 +118,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3165116199864226877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2325351559591162125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e09e5476517b2c246b7978b461f5f7d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cycleMode: 1
-  currentCycle: 0
-  facingDirection: 3
-  dualPrefab: {fileID: 2325351559591162125, guid: 9e1e974a424f2974a90a652e9a750b0b, type: 3}
-  dayGameObject: {fileID: 0}
-  nightGameObject: {fileID: 0}
 --- !u!61 &4297661825051913397
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -151,7 +131,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.04}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -162,20 +142,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0
---- !u!114 &5418540188478662062
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2325351559591162125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f37d0468384a5554f86e3312e027d436, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!111 &1130171819724536816
 Animation:
   m_ObjectHideFlags: 0

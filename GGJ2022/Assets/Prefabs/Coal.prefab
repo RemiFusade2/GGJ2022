@@ -93,9 +93,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1486857228939742422}
-  - component: {fileID: 1486857228939742423}
   - component: {fileID: 1486857228939742420}
-  - component: {fileID: 5833655683614593077}
+  - component: {fileID: 5956017940068523649}
   m_Layer: 0
   m_Name: Coal
   m_TagString: Coal
@@ -119,24 +118,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1486857228939742423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486857228939742421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e09e5476517b2c246b7978b461f5f7d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cycleMode: 1
-  currentCycle: 0
-  facingDirection: 3
-  dualPrefab: {fileID: 2325351559591162125, guid: ce9102ac4b1195b4982db35ff334a3f8, type: 3}
-  dayGameObject: {fileID: 0}
-  nightGameObject: {fileID: 0}
 --- !u!61 &1486857228939742420
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,15 +144,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
---- !u!114 &5833655683614593077
-MonoBehaviour:
+--- !u!111 &5956017940068523649
+Animation:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486857228939742421}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f37d0468384a5554f86e3312e027d436, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 873ed97c9dde4a04fa11a6ee699b131b, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 873ed97c9dde4a04fa11a6ee699b131b, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0

@@ -20,6 +20,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip grabKeySFX;
     public AudioClip grabDiamondSFX;
     public AudioClip grabCoalSFX;
+    public AudioClip grabExtraLifeSFX;
     public AudioClip openDoorSFX;
     public AudioClip loseLifeSFX;
     public AudioClip finishLevelSFX;
@@ -73,6 +74,10 @@ public class AudioManager : MonoBehaviour
     public void PlayGrabCoalSFX()
     {
         soundEffectAudioSource.PlayOneShot(grabCoalSFX);
+    }
+    public void PlayGrabExtraLifeSFX()
+    {
+        soundEffectAudioSource.PlayOneShot(grabExtraLifeSFX);
     }
     public void PlayOpenDoorSFX()
     {

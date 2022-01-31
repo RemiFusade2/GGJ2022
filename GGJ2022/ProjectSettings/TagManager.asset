@@ -13,6 +13,7 @@ TagManager:
   - Door
   - Diamond
   - Coal
+  - Extra Life
   layers:
   - Default
   - TransparentFX

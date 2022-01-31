@@ -28,6 +28,11 @@ public class UIManager : MonoBehaviour
     public GameObject creditsPanel;
     public Text thankYouText;
 
+    [Header("References - level complete")]
+    public GameObject levelCompletePanel;
+    public Text levelCompleteTimeBonusText;
+    public string timeBonusPrefix = "TIME BONUS: ";
+
     [Header("References - in game")]
     public GameObject startLevelPanel;
     public GameObject topInfoPanel;
@@ -35,6 +40,7 @@ public class UIManager : MonoBehaviour
     [Space]
     public Text scoreValueText;
     public Text keysValueText;
+    public GameObject keysValueInfinitePanel;
     public Slider livesValueSlider;
     public Slider dayNightCycleSlider;
 
@@ -44,6 +50,21 @@ public class UIManager : MonoBehaviour
     private bool preventInsertCoinBlink;
 
     private int coins;
+
+    private void Awake()
+    {
+        instance = this;
+        coins = 0;
+        preventInsertCoinBlink = false;
+    }
+
+    private void Start()
+    {
+        ShowInsertCoinText();
+        ShowThankYouText();
+    }
+
+    #region Leaderboard
 
     public void DisplayScoreEntries(List<ScoreEntryData> scoreEntriesData, int activeRank)
     {
@@ -81,18 +102,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-        instance = this;
-        coins = 0;
-        preventInsertCoinBlink = false;
-    }
-
-    private void Start()
-    {
-        ShowInsertCoinText();
-        ShowThankYouText();
-    }
+    #endregion
+    
+    #region Insert Coin
 
     private void ShowInsertCoinText()
     {
@@ -152,6 +164,8 @@ public class UIManager : MonoBehaviour
         Invoke("StopPreventInsertCoinBlink", 5f);
     }
 
+    #endregion
+
     public void UpdateDayNightSliderValue(float remaningTime)
     {
         dayNightCycleSlider.value = Mathf.CeilToInt(remaningTime);
@@ -167,7 +181,18 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateKeysValueText(int newValue)
     {
-        keysValueText.text = newValue.ToString();
+        if (newValue == int.MaxValue)
+        {
+            keysValueInfinitePanel.SetActive(true);
+            keysValueText.gameObject.SetActive(false);
+        }
+        else
+        {
+            keysValueInfinitePanel.SetActive(false);
+            keysValueText.gameObject.SetActive(true);
+            keysValueText.text = newValue.ToString();
+        }
+
     }
 
     public void HideAllPanels()
@@ -178,6 +203,7 @@ public class UIManager : MonoBehaviour
         startLevelPanel.SetActive(false);
         topInfoPanel.SetActive(false);
         creditsPanel.SetActive(false);
+        levelCompletePanel.SetActive(false);
     }
 
     private void ShowThankYouText()
@@ -239,5 +265,13 @@ public class UIManager : MonoBehaviour
     {
         HideAllPanels();
         leaderboardPanel.SetActive(true);
+    }
+
+    public void ShowLevelCompleteScreen(int timeBonus)
+    {
+        HideAllPanels();
+        ShowTopInfoPanel();
+        levelCompleteTimeBonusText.text = timeBonusPrefix + timeBonus.ToString();
+        levelCompletePanel.SetActive(true);
     }
 }

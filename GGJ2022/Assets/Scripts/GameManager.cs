@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     public string scrollingStaticRGBVectorName;
     [Space]
     public float timeBonusLifespan;
-    public float timeBonusRequiredTime;
+    [Space]
+    public int maxLives = 2;
 
     [Header("References")]
     public Material screenMaterial;
@@ -33,7 +34,8 @@ public class GameManager : MonoBehaviour
     [Header("Prefabs")]
     public GameObject scorePrefab;
     [Space]
-    public GameObject timeBonusPrefab;
+    public GameObject completionBonusPrefab;
+    public GameObject extralifePrefab;
 
     // Runtime
     [Header("Runtime")]
@@ -49,8 +51,15 @@ public class GameManager : MonoBehaviour
 
     private PlayerController myPlayer;
 
-    private bool currentTimeBonusWasSpawned;
 
+    // Completion Bonus
+    private bool currentCompletionBonusWasSpawned;
+
+    // Time Bonus
+    private int timeBonusPoints;
+
+    // Keys secret bonus
+    private bool keySecretWillUnlock;
 
 
     private void Awake()
@@ -106,9 +115,10 @@ public class GameManager : MonoBehaviour
         score = 0;
         currentLevelScore = 0;
         keys = 0;
-        lives = 2;
+        lives = maxLives;
         currentGameTime = 0;
-        currentTimeBonusWasSpawned = false;
+        timeBonusPoints = 0;
+        currentCompletionBonusWasSpawned = false;
         UIManager.instance.UpdateKeysValueText(keys);
         UIManager.instance.UpdateScoreValueText(score);
         UIManager.instance.UpdateLivesValueText(lives);
@@ -121,6 +131,15 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateScoreValueText(score);
         GameObject scoreObj = Instantiate(scorePrefab, itemPosition, scorePrefab.transform.rotation);
         scoreObj.GetComponent<ScoreBehaviour>().Initialize(new Vector2(itemPosition.x, itemPosition.y), scoreAdd);
+    }
+
+    public void AddExtraLife()
+    {
+        if (lives < maxLives)
+        {
+            lives++;
+            UIManager.instance.UpdateLivesValueText(lives);
+        }
     }
 
     public void ShowLevelStartScreen()
@@ -141,34 +160,45 @@ public class GameManager : MonoBehaviour
         gameIsRunning = true;
         currentLevelScore = 0;
         currentGameTime = 0;
-        currentTimeBonusWasSpawned = false;
+        timeBonusPoints = 0;
+        currentCompletionBonusWasSpawned = false;
     }
 
-    public void TrySpawnTimeBonus()
+    public void TrySpawnCompletionBonus()
     {
-        Invoke("InvokeTrySpawnTimeBonus", 0.1f);
+        Invoke("InvokeTrySpawnCompletionBonus", 0.1f);
     }
 
-    private void InvokeTrySpawnTimeBonus()
+    private void InvokeTrySpawnCompletionBonus()
     {
         int sumOfAllCollectibleItems = GameObject.FindGameObjectsWithTag("Collectible").Length + GameObject.FindGameObjectsWithTag("Monster").Length;
 
-        Debug.Log("TrySpawnTimeBonus. " + sumOfAllCollectibleItems + " ; " + currentGameTime);
-        if (sumOfAllCollectibleItems == 0 && !currentTimeBonusWasSpawned && currentGameTime <= timeBonusRequiredTime)
+        Debug.Log("TrySpawnCompletionBonus. " + sumOfAllCollectibleItems + " ; " + currentGameTime);
+        if (sumOfAllCollectibleItems == 0 && !currentCompletionBonusWasSpawned)
         {
-            SpawnTimeBonus();
-            currentTimeBonusWasSpawned = true;
+            SpawnCompletionBonus();
+            currentCompletionBonusWasSpawned = true;
         }
     }
 
-    private void SpawnTimeBonus()
+    private void SpawnCompletionBonus()
     {
-        Vector3 exitPosition = LevelManager.instance.GetExitPosition();
+        if (LevelManager.instance.GetCoalPosition(out Vector3 completionBonusPosition))
+        {
+            Transform parent = LevelManager.instance.currentLevelGameObject.transform;
+            LevelManager.instance.RemoveCoal();
 
-        Transform parent = LevelManager.instance.currentLevelGameObject.transform;
-        GameObject currentTimeBonus = Instantiate(timeBonusPrefab, exitPosition, timeBonusPrefab.transform.rotation, parent);
-        currentTimeBonus.GetComponent<DayNightCycle>().currentCycle = CYCLETYPE.DAY;
-        currentTimeBonus.GetComponent<LifetimeBehaviour>().SetLifespan(timeBonusLifespan);
+            if (lives < maxLives)
+            {
+                // spawn extra life
+                GameObject currentCompletionBonus = Instantiate(extralifePrefab, completionBonusPosition, completionBonusPrefab.transform.rotation, parent);
+            }
+            else
+            {
+                // spawn completion bonus (diamond)
+                GameObject currentCompletionBonus = Instantiate(completionBonusPrefab, completionBonusPosition, completionBonusPrefab.transform.rotation, parent);
+            }
+        }
     }
 
     public void FinishLevel()
@@ -176,15 +206,30 @@ public class GameManager : MonoBehaviour
         myPlayer.MakePlayerMoveRight();
         gameIsRunning = false;
 
-        Invoke("FinishLevelForReal", 0.6f);
+        // set time bonus
+        timeBonusPoints = (600 - Mathf.CeilToInt(currentGameTime * 10));
+        timeBonusPoints = (timeBonusPoints <= 0) ? 0 : timeBonusPoints;
+
+        Invoke("FinishLevelShowLevelComplete", 0.6f);
+    }
+
+    private void FinishLevelShowLevelComplete()
+    {
+        keys = 0;
+        UIManager.instance.UpdateKeysValueText(keys);
+
+        currentLevelScore = 0;
+        score += timeBonusPoints;
+        UIManager.instance.UpdateScoreValueText(score);
+
+        UIManager.instance.ShowLevelCompleteScreen(timeBonusPoints);
+
+        Invoke("FinishLevelForReal", 2.0f);
     }
 
     private void FinishLevelForReal()
     {
-        keys = 0;
-        currentLevelScore = 0;
-        currentTimeBonusWasSpawned = false;
-        UIManager.instance.UpdateKeysValueText(keys);
+        currentCompletionBonusWasSpawned = false;
         bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
         if (nextLevelLoaded)
         {
@@ -204,7 +249,7 @@ public class GameManager : MonoBehaviour
         animator.SetBool("IsDead", true);
         myPlayer.StopPlayer();
         gameIsRunning = false;
-        Invoke("LoseLifeForReal", 0.6f);
+        Invoke("LoseLifeForReal", 0.8f);
     }
 
     private void LoseLifeForReal()

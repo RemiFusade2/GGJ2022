@@ -14,7 +14,9 @@ public class MonsterBehaviour : MonoBehaviour
 {
     private Rigidbody2D monsterRigidbody;
 
-    public MoveData moveData;
+    public MoveData moveDataGame1;
+    public MoveData moveDataGame2;
+
     public Animator animator;
 
     public DIRECTION GetCurrentDirection()
@@ -47,7 +49,7 @@ public class MonsterBehaviour : MonoBehaviour
     void Start()
     {
         monsterRigidbody = GetComponent<Rigidbody2D>();
-
+        
         switch (GetComponent<DayNightCycle>().facingDirection)
         {
             case DIRECTION.DOWN:
@@ -113,15 +115,25 @@ public class MonsterBehaviour : MonoBehaviour
     {
         if (GameManager.instance.gameIsRunning)
         {
-            if (moveData != null)
+            if (GetCurrentMoveData() != null)
             {
-                monsterRigidbody.velocity = GetDirection() * moveData.moveSpeed;
+                monsterRigidbody.velocity = GetDirection() * GetCurrentMoveData().moveSpeed;
             }
         }
         else
         {
             monsterRigidbody.velocity = Vector2.zero;
         }
+    }
+
+    private MoveData GetCurrentMoveData()
+    {
+        MoveData currentMoveData = moveDataGame1;
+        if (LevelManager.instance.GameDifficultyLevel == 2)
+        {
+            currentMoveData = moveDataGame2;
+        }
+        return currentMoveData;
     }
 
     /*
@@ -145,30 +157,89 @@ public class MonsterBehaviour : MonoBehaviour
         return pathIsFree;
     }*/
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void ForcePositionOnGrid()
     {
-        if (moveData != null && moveData.movementPattern == MOVEMENT_PATTERN.BACK_AND_FORTH)
+        Vector2 newPosition = new Vector2(Mathf.Round(monsterRigidbody.position.x * 2) / 2, Mathf.Round(monsterRigidbody.position.y * 2) / 2);
+        this.transform.position = newPosition;
+        //monsterRigidbody.MovePosition(newPosition);
+    }
+
+    private void TryChangeDirection(Collision2D collision)
+    {
+        if (GetCurrentMoveData() != null)
         {
             bool shouldChangeDirection = Vector2.Dot(GetDirection(), (collision.GetContact(0).point - monsterRigidbody.position)) > 0;
-
             if (shouldChangeDirection)
             {
-                switch (GetCurrentDirection())
+                ForcePositionOnGrid();
+
+                switch (GetCurrentMoveData().movementPattern)
                 {
-                    case DIRECTION.UP:
-                        SetCurrentDirection(DIRECTION.DOWN);
+                    case MOVEMENT_PATTERN.NOT_MOVING:
                         break;
-                    case DIRECTION.DOWN:
-                        SetCurrentDirection(DIRECTION.UP);
+                    case MOVEMENT_PATTERN.BACK_AND_FORTH:
+                        switch (GetCurrentDirection())
+                        {
+                            case DIRECTION.UP:
+                                SetCurrentDirection(DIRECTION.DOWN);
+                                break;
+                            case DIRECTION.DOWN:
+                                SetCurrentDirection(DIRECTION.UP);
+                                break;
+                            case DIRECTION.RIGHT:
+                                SetCurrentDirection(DIRECTION.LEFT);
+                                break;
+                            case DIRECTION.LEFT:
+                                SetCurrentDirection(DIRECTION.RIGHT);
+                                break;
+                        }
                         break;
-                    case DIRECTION.RIGHT:
-                        SetCurrentDirection(DIRECTION.LEFT);
+                    case MOVEMENT_PATTERN.ALWAYS_TURN_LEFT:
+                        switch (GetCurrentDirection())
+                        {
+                            case DIRECTION.UP:
+                                SetCurrentDirection(DIRECTION.LEFT);
+                                break;
+                            case DIRECTION.DOWN:
+                                SetCurrentDirection(DIRECTION.RIGHT);
+                                break;
+                            case DIRECTION.RIGHT:
+                                SetCurrentDirection(DIRECTION.UP);
+                                break;
+                            case DIRECTION.LEFT:
+                                SetCurrentDirection(DIRECTION.DOWN);
+                                break;
+                        }
                         break;
-                    case DIRECTION.LEFT:
-                        SetCurrentDirection(DIRECTION.RIGHT);
+                    case MOVEMENT_PATTERN.ALWAYS_TURN_RIGHT:
+                        switch (GetCurrentDirection())
+                        {
+                            case DIRECTION.UP:
+                                SetCurrentDirection(DIRECTION.RIGHT);
+                                break;
+                            case DIRECTION.DOWN:
+                                SetCurrentDirection(DIRECTION.LEFT);
+                                break;
+                            case DIRECTION.RIGHT:
+                                SetCurrentDirection(DIRECTION.DOWN);
+                                break;
+                            case DIRECTION.LEFT:
+                                SetCurrentDirection(DIRECTION.UP);
+                                break;
+                        }
                         break;
                 }
             }
         }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        TryChangeDirection(collision);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TryChangeDirection(collision);
     }
 }

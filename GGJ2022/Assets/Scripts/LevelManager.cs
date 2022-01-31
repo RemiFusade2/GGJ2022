@@ -16,9 +16,12 @@ public class LevelManager : MonoBehaviour
     public GameObject currentLevelGameObject;
     public int currentLevelIndex;
 
+    public int GameDifficultyLevel;
+
     private void Awake()
     {
         instance = this;
+        GameDifficultyLevel = 1;
     }
 
     // Start is called before the first frame update
@@ -62,7 +65,14 @@ public class LevelManager : MonoBehaviour
         bool nextLevelLoaded = false;
         if (IsLastLevel())
         {
-            //MainLogicManager.instance.GameOver();
+            // Either we increase difficulty and play all levels again, or we don't load a level and the game end
+            if (GameDifficultyLevel == 1)
+            {
+                GameDifficultyLevel = 2;
+                currentLevelIndex = 0;
+                ReloadLevel();
+                nextLevelLoaded = true;
+            }
         }
         else 
         {
@@ -91,5 +101,57 @@ public class LevelManager : MonoBehaviour
             }
         }
         return exitPosition;
+    }
+
+    public void RemoveCoal()
+    {
+        GameObject coal = null;
+        foreach (Transform levelChild in currentLevelGameObject.transform)
+        {
+            if (levelChild.CompareTag("Coal"))
+            {
+                coal = levelChild.gameObject;
+                break;
+            }
+            foreach (Transform levelChildChild in levelChild)
+            {
+                if (levelChildChild.CompareTag("Coal"))
+                {
+                    coal = levelChildChild.gameObject;
+                    break;
+                }
+            }
+        }
+
+        if (coal != null)
+        {
+            Destroy(coal);
+        }
+    }
+
+    public bool GetCoalPosition(out Vector3 coalPosition)
+    {
+        // Find Coal
+        bool isCoal = false;
+        coalPosition = Vector2.zero;
+        foreach (Transform levelChild in currentLevelGameObject.transform)
+        {
+            if (levelChild.CompareTag("Coal"))
+            {
+                coalPosition = levelChild.position;
+                isCoal = true;
+                break;
+            }
+            foreach (Transform levelChildChild in levelChild)
+            {
+                if (levelChildChild.CompareTag("Coal"))
+                {
+                    coalPosition = levelChildChild.position;
+                    isCoal = true;
+                    break;
+                }
+            }
+        }
+        return isCoal;
     }
 }
