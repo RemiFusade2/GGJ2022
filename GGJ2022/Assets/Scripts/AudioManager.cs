@@ -77,7 +77,7 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayGrabExtraLifeSFX()
     {
-        soundEffectAudioSource.PlayOneShot(grabExtraLifeSFX);
+        soundEffectAudioSource.PlayOneShot(grabExtraLifeSFX, 0.9f);
     }
     public void PlayOpenDoorSFX()
     {
