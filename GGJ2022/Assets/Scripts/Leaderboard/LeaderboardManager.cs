@@ -27,16 +27,18 @@ public class LeaderboardManager : MonoBehaviour
     public bool activeScoreEntered;
 
     public string saveFileName;
+    public const string playerPrefsKey = "Mole_Leaderboard_Data";
 
     private ScoreEntryData currentScoreEntry;
 
     public void SaveScoreEntries()
     {
-        Debug.Log("SaveScoreEntries(). Entries count = " + allScoreEntriesData.data.Count);
-
-        //string json = JsonUtility.ToJson(allScoreEntriesData);
         try
         {
+            string json = JsonUtility.ToJson(allScoreEntriesData);
+            PlayerPrefs.SetString(playerPrefsKey, json);
+
+            /*
             string destination = Application.persistentDataPath + "/" + saveFileName;
             FileStream file;
 
@@ -46,7 +48,7 @@ public class LeaderboardManager : MonoBehaviour
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(file, allScoreEntriesData);
 
-            file.Close();
+            file.Close();*/
         }
         catch (System.Exception ex)
         {
@@ -56,9 +58,32 @@ public class LeaderboardManager : MonoBehaviour
 
     public void LoadScoreEntries()
     {
-        string destination = Application.persistentDataPath + "/" + saveFileName;
-        FileStream file;
+        //string destination = Application.persistentDataPath + "/" + saveFileName;
+        //FileStream file;
 
+
+        try
+        {
+            string json = PlayerPrefs.GetString(playerPrefsKey);
+            if (string.IsNullOrEmpty(json))
+            {
+                // load default scores
+                CreateDefaultEntriesData();
+                SaveScoreEntries();
+                return;
+            }
+            else
+            {
+                ScoreEntriesData loadedData = JsonUtility.FromJson<ScoreEntriesData>(json);
+                allScoreEntriesData = loadedData;
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Debug.LogError("Can't load file. Exception: " + ex.Message);
+        }
+
+        /*
         if (File.Exists(destination)) file = File.OpenRead(destination);
         else
         {
@@ -70,9 +95,7 @@ public class LeaderboardManager : MonoBehaviour
 
         BinaryFormatter bf = new BinaryFormatter();
         ScoreEntriesData data = (ScoreEntriesData)bf.Deserialize(file);
-        file.Close();
-
-        allScoreEntriesData = data;
+        file.Close();*/
     }
 
     public void CreateDefaultEntriesData()
