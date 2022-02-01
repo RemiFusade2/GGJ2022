@@ -2361,7 +2361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2293629850242004189}
   m_Layer: 0
-  m_Name: Level3b_Messy_corridor
+  m_Name: Level7b_Messy_corridor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
