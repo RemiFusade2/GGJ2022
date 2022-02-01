@@ -24,7 +24,7 @@ public class MainLogicManager : MonoBehaviour
     public string startInputName;
     public string exitInputName;
     public string insertCoinInputName;
-    public string nextLevelInputName;
+    public string dieInputName;
     private Player rewiredPlayer;
 
     [Header("Runtime")]
@@ -197,11 +197,13 @@ public class MainLogicManager : MonoBehaviour
         }
 
                
-        if (rewiredPlayer.GetButtonDown(nextLevelInputName))
+        if (rewiredPlayer.GetButtonDown(dieInputName))
         {
+            /*
             currentScreen = SCREEN.LEVEL;
             LevelManager.instance.LoadNextLevel();
-            StartLevelAfterDelay(2.0f);
+            StartLevelAfterDelay(2.0f);*/
+            GameManager.instance.LoseLife();
         }
 
         if (rewiredPlayer.GetButtonDown(exitInputName))
