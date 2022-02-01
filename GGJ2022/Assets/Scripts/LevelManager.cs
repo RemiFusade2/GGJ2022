@@ -18,6 +18,35 @@ public class LevelManager : MonoBehaviour
 
     public int GameDifficultyLevel;
 
+    public int allKeysInCurrentLevel;
+    public int allCollectiblesInCurrentLevel;
+
+    public int allKeysCollected;
+    public int allCollectiblesCollected;
+
+    public Vector2 coalPosition;
+    public GameObject coalGo;
+
+    public bool WereAllKeysCollected()
+    {
+        return (allKeysCollected == allKeysInCurrentLevel);
+    }
+
+    public bool WereAllCollectiblesCollected()
+    {
+        return (allCollectiblesCollected == allCollectiblesInCurrentLevel);
+    }
+
+    public void CollectKey()
+    {
+        allKeysCollected++;
+    }
+
+    public void CollectCollectible()
+    {
+        allCollectiblesCollected++;
+    }
+
     private void Awake()
     {
         instance = this;
@@ -28,6 +57,11 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         //LoadFirstLevel();
+    }
+
+    public bool IsEndOfWorld1()
+    {
+        return (currentLevelIndex == allLevelPrefabs.Count - 1 && GameDifficultyLevel == 1);
     }
 
     public bool IsLastLevel()
@@ -41,6 +75,11 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(currentLevelGameObject);
         }
+
+        allKeysInCurrentLevel = 0;
+        allCollectiblesInCurrentLevel = 0;
+        allKeysCollected = 0;
+        allCollectiblesCollected = 0;
     }
 
     public void ReloadLevel()
@@ -55,6 +94,44 @@ public class LevelManager : MonoBehaviour
             {
                 player.GetComponent<PlayerController>().Teleport(new Vector2(levelChild.position.x, levelChild.position.y));
                 break;
+            }
+        }
+
+        // Find Coal, count keys and count collectibles
+        coalPosition = Vector2.zero;
+        coalGo = null;
+        allKeysInCurrentLevel = 0;
+        allCollectiblesInCurrentLevel = 0;
+        foreach (Transform levelChild in currentLevelGameObject.transform)
+        {
+            if (levelChild.CompareTag("Coal"))
+            {
+                coalPosition = levelChild.position;
+                coalGo = levelChild.gameObject;
+            }
+            else if (levelChild.CompareTag("Key") || levelChild.CompareTag("Door"))
+            {
+                allKeysInCurrentLevel++;
+            }
+            else if (levelChild.CompareTag("Collectible") || levelChild.CompareTag("Monster"))
+            {
+                allCollectiblesInCurrentLevel++;
+            }
+            foreach (Transform levelChildChild in levelChild)
+            {
+                if (levelChildChild.CompareTag("Coal"))
+                {
+                    coalPosition = levelChildChild.position;
+                    coalGo = levelChildChild.gameObject;
+                }
+                else if (levelChildChild.CompareTag("Key") || levelChildChild.CompareTag("Door"))
+                {
+                    allKeysInCurrentLevel++;
+                }
+                else if (levelChildChild.CompareTag("Collectible") || levelChildChild.CompareTag("Monster"))
+                {
+                    allCollectiblesInCurrentLevel++;
+                }
             }
         }
     }
@@ -105,53 +182,9 @@ public class LevelManager : MonoBehaviour
 
     public void RemoveCoal()
     {
-        GameObject coal = null;
-        foreach (Transform levelChild in currentLevelGameObject.transform)
+        if (coalGo != null)
         {
-            if (levelChild.CompareTag("Coal"))
-            {
-                coal = levelChild.gameObject;
-                break;
-            }
-            foreach (Transform levelChildChild in levelChild)
-            {
-                if (levelChildChild.CompareTag("Coal"))
-                {
-                    coal = levelChildChild.gameObject;
-                    break;
-                }
-            }
+            Destroy(coalGo);
         }
-
-        if (coal != null)
-        {
-            Destroy(coal);
-        }
-    }
-
-    public bool GetCoalPosition(out Vector3 coalPosition)
-    {
-        // Find Coal
-        bool isCoal = false;
-        coalPosition = Vector2.zero;
-        foreach (Transform levelChild in currentLevelGameObject.transform)
-        {
-            if (levelChild.CompareTag("Coal"))
-            {
-                coalPosition = levelChild.position;
-                isCoal = true;
-                break;
-            }
-            foreach (Transform levelChildChild in levelChild)
-            {
-                if (levelChildChild.CompareTag("Coal"))
-                {
-                    coalPosition = levelChildChild.position;
-                    isCoal = true;
-                    break;
-                }
-            }
-        }
-        return isCoal;
     }
 }

@@ -101,9 +101,14 @@ public class PlayerController : MonoBehaviour
         {
             AudioManager.instance.PlayGrabCollectibleSFX();
             GameManager.instance.IncreaseScore(100, collision.gameObject.transform.position);
-            Destroy(collision.collider.gameObject);
+            LevelManager.instance.CollectCollectible();
 
-            GameManager.instance.TrySpawnCompletionBonus();
+            if (LevelManager.instance.WereAllCollectiblesCollected())
+            {
+                GameManager.instance.TrySpawnCompletionBonus();
+            }
+
+            Destroy(collision.collider.gameObject);
         }
         else if (collision.collider.CompareTag("Extra Life"))
         {
@@ -128,6 +133,7 @@ public class PlayerController : MonoBehaviour
             AudioManager.instance.PlayGrabKeySFX();
             GameManager.instance.AddKey();
             GameManager.instance.IncreaseScore(50, collision.gameObject.transform.position);
+            LevelManager.instance.CollectKey();
             Destroy(collision.collider.gameObject);
         }
         else if (collision.collider.CompareTag("Door"))

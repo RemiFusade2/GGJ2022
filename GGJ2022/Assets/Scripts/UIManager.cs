@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
     public Text scoreValueText;
     public Text keysValueText;
     public GameObject keysValueInfinitePanel;
+    public GameObject infiniteKeysUnlockedPanel;
     public Slider livesValueSlider;
     public Slider dayNightCycleSlider;
 
@@ -179,9 +180,9 @@ public class UIManager : MonoBehaviour
     {
         livesValueSlider.value = newValue;
     }
-    public void UpdateKeysValueText(int newValue)
+    public void UpdateKeysValueText(int newValue, bool infiniteKeys)
     {
-        if (newValue == int.MaxValue)
+        if (infiniteKeys)
         {
             keysValueInfinitePanel.SetActive(true);
             keysValueText.gameObject.SetActive(false);
@@ -228,12 +229,14 @@ public class UIManager : MonoBehaviour
         topInfoPanel.SetActive(true);
     }
     
-    public void ShowStartLevelPanel(int levelIndex)
+    public void ShowStartLevelPanel(int levelIndex, int difficultyLevel)
     {
         HideAllPanels();
         startLevelPanel.SetActive(true);
         ShowTopInfoPanel();
         string levelName = "LEVEL " + (levelIndex + 1).ToString();
+        levelName += (difficultyLevel >= 2) ? "+" : "";
+        levelName += (difficultyLevel >= 3) ? "+" : "";
         levelTitleText.text = levelName;
     }
     public void ShowTitleScreen()
@@ -267,11 +270,12 @@ public class UIManager : MonoBehaviour
         leaderboardPanel.SetActive(true);
     }
 
-    public void ShowLevelCompleteScreen(int timeBonus)
+    public void ShowLevelCompleteScreen(int timeBonus, bool infiniteKeysUnlocked)
     {
         HideAllPanels();
         ShowTopInfoPanel();
         levelCompleteTimeBonusText.text = timeBonusPrefix + timeBonus.ToString();
+        infiniteKeysUnlockedPanel.SetActive(infiniteKeysUnlocked);
         levelCompletePanel.SetActive(true);
     }
 }

@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public int score;
     private int currentLevelScore;
     public int keys;
+    public bool infiniteKeys;
     public int lives;
     public bool gameIsRunning;
 
@@ -59,7 +60,8 @@ public class GameManager : MonoBehaviour
     private int timeBonusPoints;
 
     // Keys secret bonus
-    private bool keySecretWillUnlock;
+    public bool keySecretWillUnlock;
+    
 
 
     private void Awake()
@@ -67,6 +69,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         gameIsRunning = false;
         glitchEffectIsRunning = false;
+        keySecretWillUnlock = true;
     }
 
     // Start is called before the first frame update
@@ -112,6 +115,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetGame()
     {
+        keySecretWillUnlock = true;
         score = 0;
         currentLevelScore = 0;
         keys = 0;
@@ -119,7 +123,8 @@ public class GameManager : MonoBehaviour
         currentGameTime = 0;
         timeBonusPoints = 0;
         currentCompletionBonusWasSpawned = false;
-        UIManager.instance.UpdateKeysValueText(keys);
+        infiniteKeys = false;
+        UIManager.instance.UpdateKeysValueText(keys, infiniteKeys);
         UIManager.instance.UpdateScoreValueText(score);
         UIManager.instance.UpdateLivesValueText(lives);
     }
@@ -147,7 +152,7 @@ public class GameManager : MonoBehaviour
         gameIsRunning = false;
         SwitchToDayTime();
         UIManager.instance.UpdateDayNightSliderValue(cycleCurrentTimer);
-        UIManager.instance.ShowStartLevelPanel(LevelManager.instance.currentLevelIndex);
+        UIManager.instance.ShowStartLevelPanel(LevelManager.instance.currentLevelIndex, LevelManager.instance.GameDifficultyLevel);
     }
 
     public void StartGame()
@@ -172,8 +177,7 @@ public class GameManager : MonoBehaviour
     private void InvokeTrySpawnCompletionBonus()
     {
         int sumOfAllCollectibleItems = GameObject.FindGameObjectsWithTag("Collectible").Length + GameObject.FindGameObjectsWithTag("Monster").Length;
-
-        Debug.Log("TrySpawnCompletionBonus. " + sumOfAllCollectibleItems + " ; " + currentGameTime);
+        
         if (sumOfAllCollectibleItems == 0 && !currentCompletionBonusWasSpawned)
         {
             SpawnCompletionBonus();
@@ -183,7 +187,7 @@ public class GameManager : MonoBehaviour
 
     private void SpawnCompletionBonus()
     {
-        if (LevelManager.instance.GetCoalPosition(out Vector3 completionBonusPosition))
+        if (LevelManager.instance.coalGo != null)
         {
             Transform parent = LevelManager.instance.currentLevelGameObject.transform;
             LevelManager.instance.RemoveCoal();
@@ -191,12 +195,12 @@ public class GameManager : MonoBehaviour
             if (lives < maxLives)
             {
                 // spawn extra life
-                GameObject currentCompletionBonus = Instantiate(extralifePrefab, completionBonusPosition, completionBonusPrefab.transform.rotation, parent);
+                GameObject currentCompletionBonus = Instantiate(extralifePrefab, LevelManager.instance.coalPosition, completionBonusPrefab.transform.rotation, parent);
             }
             else
             {
                 // spawn completion bonus (diamond)
-                GameObject currentCompletionBonus = Instantiate(completionBonusPrefab, completionBonusPosition, completionBonusPrefab.transform.rotation, parent);
+                GameObject currentCompletionBonus = Instantiate(completionBonusPrefab, LevelManager.instance.coalPosition, completionBonusPrefab.transform.rotation, parent);
             }
         }
     }
@@ -210,19 +214,28 @@ public class GameManager : MonoBehaviour
         timeBonusPoints = (600 - Mathf.CeilToInt(currentGameTime * 10));
         timeBonusPoints = (timeBonusPoints <= 0) ? 0 : timeBonusPoints;
 
+        if (!LevelManager.instance.WereAllKeysCollected())
+        {
+            keySecretWillUnlock = false;
+        }
+
         Invoke("FinishLevelShowLevelComplete", 0.6f);
     }
 
     private void FinishLevelShowLevelComplete()
     {
-        keys = 0;
-        UIManager.instance.UpdateKeysValueText(keys);
 
         currentLevelScore = 0;
         score += timeBonusPoints;
         UIManager.instance.UpdateScoreValueText(score);
 
-        UIManager.instance.ShowLevelCompleteScreen(timeBonusPoints);
+        bool unlockScretInfiniteKeys = LevelManager.instance.IsEndOfWorld1();
+
+        infiniteKeys = infiniteKeys || (unlockScretInfiniteKeys && keySecretWillUnlock);
+        keys = 0;
+        UIManager.instance.UpdateKeysValueText(keys, infiniteKeys);
+
+        UIManager.instance.ShowLevelCompleteScreen(timeBonusPoints, unlockScretInfiniteKeys && keySecretWillUnlock);
 
         Invoke("FinishLevelForReal", 2.0f);
     }
@@ -267,7 +280,7 @@ public class GameManager : MonoBehaviour
             score -= currentLevelScore;
             currentLevelScore = 0;
             keys = 0;
-            UIManager.instance.UpdateKeysValueText(keys);
+            UIManager.instance.UpdateKeysValueText(keys, infiniteKeys);
             UIManager.instance.UpdateScoreValueText(score);
             UIManager.instance.UpdateLivesValueText(lives);
             LevelManager.instance.ReloadLevel();
@@ -279,15 +292,15 @@ public class GameManager : MonoBehaviour
     public void AddKey()
     {
         keys++;
-        UIManager.instance.UpdateKeysValueText(keys);
+        UIManager.instance.UpdateKeysValueText(keys, infiniteKeys);
     }
     public bool UseKey()
     {
-        bool canUseKey = (keys > 0);
+        bool canUseKey = (keys > 0) || infiniteKeys;
         if (canUseKey)
         {
             keys--;
-            UIManager.instance.UpdateKeysValueText(keys);
+            UIManager.instance.UpdateKeysValueText(keys, infiniteKeys);
         }
         return canUseKey;
     }
