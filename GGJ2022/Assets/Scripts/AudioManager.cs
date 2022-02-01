@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
     {
         backgroundMusicAudioSource.Stop();
         backgroundMusicAudioSource.clip = titleScreenMusic;
-        backgroundMusicAudioSource.volume = 0.2f;
+        backgroundMusicAudioSource.volume = 0.15f;
         backgroundMusicAudioSource.Play();
     }
 
