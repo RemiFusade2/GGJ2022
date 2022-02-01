@@ -50,7 +50,6 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        GameDifficultyLevel = 1;
     }
 
     // Start is called before the first frame update
@@ -162,6 +161,7 @@ public class LevelManager : MonoBehaviour
     public void LoadFirstLevel()
     {
         currentLevelIndex = 0;
+        GameDifficultyLevel = 1;
         ReloadLevel();
     }
 
