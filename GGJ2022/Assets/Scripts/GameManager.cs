@@ -224,6 +224,8 @@ public class GameManager : MonoBehaviour
 
     private void FinishLevelShowLevelComplete()
     {
+        AudioManager.instance.PlayTitleMusic();
+        AudioManager.instance.PlayFinishLevelSFX();
 
         currentLevelScore = 0;
         score += timeBonusPoints;
@@ -246,7 +248,6 @@ public class GameManager : MonoBehaviour
         bool nextLevelLoaded = LevelManager.instance.LoadNextLevel();
         if (nextLevelLoaded)
         {
-            AudioManager.instance.PlayFinishLevelSFX();
             MainLogicManager.instance.StartLevelAfterDelay(2.0f);
             //ShowLevelStartScreen();
         }
