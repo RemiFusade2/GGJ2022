@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
 
     // Keys secret bonus
     public bool keySecretWillUnlock;
-    
+
 
 
     private void Awake()
@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
     private void InvokeTrySpawnCompletionBonus()
     {
         int sumOfAllCollectibleItems = GameObject.FindGameObjectsWithTag("Collectible").Length + GameObject.FindGameObjectsWithTag("Monster").Length;
-        
+
         if (sumOfAllCollectibleItems == 0 && !currentCompletionBonusWasSpawned)
         {
             SpawnCompletionBonus();
