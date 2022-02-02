@@ -53,46 +53,57 @@ public class AudioManager : MonoBehaviour
 
     public void PlayInsertCoinSFX()
     {
+        soundEffectAudioSource.pitch = Random.Range(0.9f, 1.1f);
         soundEffectAudioSource.PlayOneShot(insertCoinSFX);
     }
     public void PlayStartLevelSFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(startLevelSFX);
     }
     public void PlayGrabCollectibleSFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(grabCollectibleSFX);
     }
     public void PlayGrabKeySFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(grabKeySFX);
     }
     public void PlayGrabDiamondSFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(grabDiamondSFX);
     }
     public void PlayGrabCoalSFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(grabCoalSFX);
     }
     public void PlayGrabExtraLifeSFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(grabExtraLifeSFX, 0.9f);
     }
     public void PlayOpenDoorSFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(openDoorSFX);
     }
     public void PlayLoseLifeSFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(loseLifeSFX);
     }
     public void PlayFinishLevelSFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(finishLevelSFX);
     }
     public void PlayDayNightSwitchSFX()
     {
+        soundEffectAudioSource.pitch = 1;
         soundEffectAudioSource.PlayOneShot(dayNightSwitchSFX);
     }
 }
