@@ -69,15 +69,12 @@ public class UIManager : MonoBehaviour
 
     public void DisplayScoreEntries(List<ScoreEntryData> scoreEntriesData, int activeRank)
     {
-        Debug.Log("DisplayScoreEntries, active rank = " + activeRank);
-
         activeScoreEntry = null;
         for (int rank = 1; rank <= scoreEntriesData.Count; rank++)
         {
             if (rank-1 < allScoreEntriesDisplay.Count)
             {
                 ScoreEntryData data = scoreEntriesData[rank - 1];
-                Debug.Log("rank " + rank + " = " + data.name + " ; " + data.score);
                 allScoreEntriesDisplay[rank - 1].Initialize(rank, data.score, data.name, (rank == activeRank));
 
                 if (rank == activeRank)

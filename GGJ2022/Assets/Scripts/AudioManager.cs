@@ -53,13 +53,19 @@ public class AudioManager : MonoBehaviour
 
     public void PlayInsertCoinSFX()
     {
-        soundEffectAudioSource.pitch = Random.Range(0.9f, 1.1f);
-        soundEffectAudioSource.PlayOneShot(insertCoinSFX);
+        if (insertCoinSFX != null)
+        {
+            soundEffectAudioSource.pitch = Random.Range(0.9f, 1.1f);
+            soundEffectAudioSource.PlayOneShot(insertCoinSFX);
+        }
     }
     public void PlayStartLevelSFX()
     {
-        soundEffectAudioSource.pitch = 1;
-        soundEffectAudioSource.PlayOneShot(startLevelSFX);
+        if (startLevelSFX != null)
+        {
+            soundEffectAudioSource.pitch = 1;
+            soundEffectAudioSource.PlayOneShot(startLevelSFX);
+        }
     }
     public void PlayGrabCollectibleSFX()
     {

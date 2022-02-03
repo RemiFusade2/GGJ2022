@@ -102,12 +102,13 @@ public class LeaderboardManager : MonoBehaviour
     {
         ScoreEntriesData defaultEntries = new ScoreEntriesData();
         defaultEntries.data = new List<ScoreEntryData>();
-        defaultEntries.data.Add(new ScoreEntryData() { name = "JEJ", score = 54700 });
-        defaultEntries.data.Add(new ScoreEntryData() { name = "AND", score = 54300 });
-        defaultEntries.data.Add(new ScoreEntryData() { name = "REM", score = 54000 });
+        defaultEntries.data.Add(new ScoreEntryData() { name = "REM", score = 54325 });
+        defaultEntries.data.Add(new ScoreEntryData() { name = "JEJ", score = 51193 });
+        defaultEntries.data.Add(new ScoreEntryData() { name = "AND", score = 46199 });
+        defaultEntries.data.Add(new ScoreEntryData() { name = "MOL", score = 45000 });
         defaultEntries.data.Add(new ScoreEntryData() { name = "MOL", score = 40000 });
         defaultEntries.data.Add(new ScoreEntryData() { name = "MOL", score = 20000 });
-        defaultEntries.data.Add(new ScoreEntryData() { name = "MOL", score = 10000 });
+        defaultEntries.data.Add(new ScoreEntryData() { name = "MOL", score = 5000 });
 
         allScoreEntriesData = defaultEntries;
     }
@@ -166,10 +167,9 @@ public class LeaderboardManager : MonoBehaviour
         activeScoreEntered = true;
 
         currentScoreEntry.name = _name;
-        currentScoreEntry.score = _score;
-
-        Debug.Log("Enter Score : " + currentScoreEntry.name + " : " + currentScoreEntry.score);
+        currentScoreEntry.score = _score;        
 
         SaveScoreEntries();
+        PlayerPrefs.Save();
     }
 }
